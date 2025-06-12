@@ -32,3 +32,4 @@ _ReSharper*/
 packages/
 FileUploads/
 App_Data/
+*.mp4
