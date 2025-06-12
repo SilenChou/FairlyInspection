@@ -1,0 +1,747 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="T8ERPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="comDepartment">
+          <Key>
+            <PropertyRef Name="DeptId" />
+          </Key>
+          <Property Name="DeptId" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="DeptShortName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="DeptName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="DepartmentCategory" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ValidityFromDate" Type="int" Nullable="false" />
+          <Property Name="ValidityToDate" Type="int" Nullable="false" />
+          <Property Name="JobScheduleId" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Lv" Type="int" Nullable="false" />
+          <Property Name="ParentDeptId" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="RootDeptId" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="DeptOrder" Type="int" Nullable="false" />
+          <Property Name="CreatorId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CreateTime" Type="bigint" Nullable="false" />
+          <Property Name="LastOperatorId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="LastOperateTime" Type="bigint" Nullable="false" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="2000" Nullable="false" />
+          <Property Name="AttachementCount" Type="smallint" Nullable="false" />
+          <Property Name="InternalId" Type="bigint" Nullable="false" />
+          <Property Name="HasPostil" Type="bit" Nullable="false" />
+          <Property Name="TimesPrinted" Type="smallint" Nullable="false" />
+          <Property Name="TimesEmailSend" Type="smallint" Nullable="false" />
+          <Property Name="TimesExported" Type="smallint" Nullable="false" />
+          <Property Name="PermitterId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="PermitTime" Type="bigint" Nullable="false" />
+          <Property Name="PermitState" Type="tinyint" Nullable="false" />
+          <Property Name="FlowState" Type="tinyint" Nullable="false" />
+          <Property Name="VaryState" Type="tinyint" Nullable="false" />
+          <Property Name="MergeOutState" Type="tinyint" Nullable="false" />
+          <Property Name="IsInUsed" Type="bit" Nullable="false" />
+          <Property Name="AuthorizedId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CurrentState" Type="tinyint" Nullable="false" />
+          <Property Name="MnemonicId" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="OrgId" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="LeaderId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="AttCalendarId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="AttRangeId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ViceLeaderId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="DesignQty" Type="int" Nullable="false" />
+          <Property Name="DesignQtyFemale" Type="int" Nullable="false" />
+          <Property Name="ActiveSalSum" Type="bit" Nullable="false" />
+          <Property Name="PresetCostCenterId" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="UserRelDisplayType" Type="tinyint" Nullable="false" />
+          <Property Name="FeeAcctAttrId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="EMail" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="LvId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsVirtualDept" Type="bit" Nullable="false" />
+          <Property Name="DHrmOrgId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="AttScopeId" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="SalScopeId" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="FIValiFromDate" Type="int" Nullable="false" />
+          <Property Name="FIValiToDate" Type="int" Nullable="false" />
+          <Property Name="LeaderHrmOrgId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ViceLeaderHrmOrgId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="UpdateKey" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="SumDeptId" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="comGroupPerson">
+          <Key>
+            <PropertyRef Name="PersonId" />
+          </Key>
+          <Property Name="PersonId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="PersonName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="MarriedStatus" Type="tinyint" Nullable="false" />
+          <Property Name="BloodType" Type="int" Nullable="false" />
+          <Property Name="Birthday" Type="int" Nullable="false" />
+          <Property Name="Sex" Type="tinyint" Nullable="false" />
+          <Property Name="EverName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="NickName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="ShengXiao" Type="int" Nullable="false" />
+          <Property Name="Constellation" Type="int" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="HomePhone" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="MSNNo" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="QQNo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="EMail" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="CreatorId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CreateTime" Type="bigint" Nullable="false" />
+          <Property Name="LastOperatorId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="LastOperateTime" Type="bigint" Nullable="false" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="2000" Nullable="false" />
+          <Property Name="AttachementCount" Type="smallint" Nullable="false" />
+          <Property Name="InternalId" Type="bigint" Nullable="false" />
+          <Property Name="HasPostil" Type="bit" Nullable="false" />
+          <Property Name="TimesPrinted" Type="smallint" Nullable="false" />
+          <Property Name="TimesEmailSend" Type="smallint" Nullable="false" />
+          <Property Name="TimesExported" Type="smallint" Nullable="false" />
+          <Property Name="PermitterId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="PermitTime" Type="bigint" Nullable="false" />
+          <Property Name="PermitState" Type="tinyint" Nullable="false" />
+          <Property Name="FlowState" Type="tinyint" Nullable="false" />
+          <Property Name="VaryState" Type="tinyint" Nullable="false" />
+          <Property Name="MergeOutState" Type="tinyint" Nullable="false" />
+          <Property Name="AuthorizedId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CurrentState" Type="tinyint" Nullable="false" />
+          <Property Name="IsInUsed" Type="bit" Nullable="false" />
+          <Property Name="MnemonicId" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="IDAwardOrg" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="IDPlace" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Anniversary" Type="int" Nullable="false" />
+          <Property Name="CountryId" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="OrigHomeplace" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="NationId" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="PoliticsStatusId" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="EngName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Homeplace" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MilitaryService" Type="smallint" Nullable="false" />
+          <Property Name="Stature" Type="smallint" Nullable="false" />
+          <Property Name="Weight" Type="real" Nullable="false" />
+          <Property Name="Hobby" Type="nvarchar" MaxLength="400" Nullable="false" />
+          <Property Name="Abhorrer" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Speciality" Type="nvarchar" MaxLength="400" Nullable="false" />
+          <Property Name="MiniBlog" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="IsSmoker" Type="tinyint" Nullable="false" />
+          <Property Name="BodyCheckCyc" Type="int" Nullable="false" />
+          <Property Name="LastBodyCheckDate" Type="int" Nullable="false" />
+          <Property Name="OtherSkill" Type="nvarchar" MaxLength="400" Nullable="false" />
+          <Property Name="Character" Type="nvarchar" MaxLength="400" Nullable="false" />
+          <Property Name="AutoAnalysis" Type="nvarchar" MaxLength="400" Nullable="false" />
+          <Property Name="LeftEyesight" Type="real" Nullable="false" />
+          <Property Name="RightEyesignt" Type="real" Nullable="false" />
+          <Property Name="EyeState" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="DiffColor" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Fax" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="UpdateKey" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="IsBlackList" Type="bit" Nullable="false" />
+          <Property Name="PMail" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="HighestEduId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="SpecialityId" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="LINE" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="comPerson">
+          <Key>
+            <PropertyRef Name="HrmOrgId" />
+            <PropertyRef Name="PersonId" />
+          </Key>
+          <Property Name="HrmOrgId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="SalCompanyId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="PersonId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="GroupId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="BelongOrgId" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="DeptId" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="BelongGroupId" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="ServiceStatus" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="PostOrgId" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="PostId" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="PositionId" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="OfficePhone" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="Ext" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Office" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="InductionDate" Type="int" Nullable="false" />
+          <Property Name="Probation" Type="smallint" Nullable="false" />
+          <Property Name="FormalDate" Type="int" Nullable="false" />
+          <Property Name="BandhDate" Type="int" Nullable="false" />
+          <Property Name="RestorationDate" Type="int" Nullable="false" />
+          <Property Name="DimissionDate" Type="int" Nullable="false" />
+          <Property Name="CreatorId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CreateTime" Type="bigint" Nullable="false" />
+          <Property Name="LastOperatorId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="LastOperateTime" Type="bigint" Nullable="false" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="2000" Nullable="false" />
+          <Property Name="AttachementCount" Type="smallint" Nullable="false" />
+          <Property Name="InternalId" Type="bigint" Nullable="false" />
+          <Property Name="HasPostil" Type="bit" Nullable="false" />
+          <Property Name="TimesPrinted" Type="smallint" Nullable="false" />
+          <Property Name="TimesEmailSend" Type="smallint" Nullable="false" />
+          <Property Name="TimesExported" Type="smallint" Nullable="false" />
+          <Property Name="PermitterId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="PermitTime" Type="bigint" Nullable="false" />
+          <Property Name="PermitState" Type="tinyint" Nullable="false" />
+          <Property Name="FlowState" Type="tinyint" Nullable="false" />
+          <Property Name="VaryState" Type="tinyint" Nullable="false" />
+          <Property Name="MergeOutState" Type="tinyint" Nullable="false" />
+          <Property Name="IsInUsed" Type="bit" Nullable="false" />
+          <Property Name="AuthorizedId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CurrentState" Type="tinyint" Nullable="false" />
+          <Property Name="MnemonicId" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="PositionGradeId" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="PositionLevelId" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="SalaryMethodId" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="SalaryModeId" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="BeginWorkDate" Type="int" Nullable="false" />
+          <Property Name="WorkMonths" Type="int" Nullable="false" />
+          <Property Name="IsOpeningData" Type="bit" Nullable="false" />
+          <Property Name="IsRedeployed" Type="bit" Nullable="false" />
+          <Property Name="IsRealOpeningData" Type="bit" Nullable="false" />
+          <Property Name="ValidityFromDate" Type="int" Nullable="false" />
+          <Property Name="ValidityToDate" Type="int" Nullable="false" />
+          <Property Name="ComWorkMonths" Type="int" Nullable="false" />
+          <Property Name="FirstInductionDate" Type="int" Nullable="false" />
+          <Property Name="CostCompanyId" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="InsurCompanyId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="InsurType" Type="tinyint" Nullable="false" />
+          <Property Name="UpdateKey" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="ContractCompId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="PreFormalDate" Type="int" Nullable="false" />
+          <Property Name="InsurCityId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ContractBeginDate" Type="int" Nullable="false" />
+          <Property Name="ContractPeriod" Type="int" Nullable="false" />
+          <Property Name="ContractEndDate" Type="int" Nullable="false" />
+          <Property Name="FlowDept" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="CostCenterId" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="IDKind" Type="tinyint" Nullable="false" />
+          <Property Name="IDNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IDValidityFromDate" Type="int" Nullable="false" />
+          <Property Name="IDValidityToDate" Type="int" Nullable="false" />
+          <Property Name="IsContainDesign" Type="bit" Nullable="false" />
+          <Property Name="AttScopeId" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="SalScopeId" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="IsNotIncludeNums" Type="bit" Nullable="false" />
+          <Property Name="PayCompanyId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="PayType" Type="tinyint" Nullable="false" />
+          <Property Name="ContractType" Type="tinyint" Nullable="false" />
+          <Property Name="IsPigeonhole_RENAME" Type="bit" />
+          <Property Name="PigeonholeConditionInfo" Type="varbinary(max)" />
+          <Property Name="PersonTypeId" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="IsPigeonhole" Type="tinyint" Nullable="false" />
+          <Property Name="WorkAge" Type="int" Nullable="false" />
+          <Property Name="FromSourceTag" Type="int" Nullable="false" />
+          <Property Name="FromBillNo" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="FromRowCode" Type="int" Nullable="false" />
+          <Property Name="ContractState" Type="tinyint" Nullable="false" />
+          <Property Name="ExpiryDate" Type="int" Nullable="false" />
+          <Property Name="SignCount" Type="int" Nullable="false" />
+          <Property Name="PeriodKind" Type="tinyint" Nullable="false" />
+          <Property Name="WorkCityId" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="T8ERPModelStoreContainer">
+          <EntitySet Name="comDepartment" EntityType="Self.comDepartment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="comGroupPerson" EntityType="Self.comGroupPerson" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="comPerson" EntityType="Self.comPerson" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="T8ERPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="comDepartment">
+          <Key>
+            <PropertyRef Name="DeptId" />
+          </Key>
+          <Property Name="DeptId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DeptShortName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DeptName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DepartmentCategory" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ValidityFromDate" Type="Int32" Nullable="false" />
+          <Property Name="ValidityToDate" Type="Int32" Nullable="false" />
+          <Property Name="JobScheduleId" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Lv" Type="Int32" Nullable="false" />
+          <Property Name="ParentDeptId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RootDeptId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DeptOrder" Type="Int32" Nullable="false" />
+          <Property Name="CreatorId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreateTime" Type="Int64" Nullable="false" />
+          <Property Name="LastOperatorId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastOperateTime" Type="Int64" Nullable="false" />
+          <Property Name="Remark" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AttachementCount" Type="Int16" Nullable="false" />
+          <Property Name="InternalId" Type="Int64" Nullable="false" />
+          <Property Name="HasPostil" Type="Boolean" Nullable="false" />
+          <Property Name="TimesPrinted" Type="Int16" Nullable="false" />
+          <Property Name="TimesEmailSend" Type="Int16" Nullable="false" />
+          <Property Name="TimesExported" Type="Int16" Nullable="false" />
+          <Property Name="PermitterId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PermitTime" Type="Int64" Nullable="false" />
+          <Property Name="PermitState" Type="Byte" Nullable="false" />
+          <Property Name="FlowState" Type="Byte" Nullable="false" />
+          <Property Name="VaryState" Type="Byte" Nullable="false" />
+          <Property Name="MergeOutState" Type="Byte" Nullable="false" />
+          <Property Name="IsInUsed" Type="Boolean" Nullable="false" />
+          <Property Name="AuthorizedId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CurrentState" Type="Byte" Nullable="false" />
+          <Property Name="MnemonicId" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OrgId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LeaderId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AttCalendarId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AttRangeId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ViceLeaderId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DesignQty" Type="Int32" Nullable="false" />
+          <Property Name="DesignQtyFemale" Type="Int32" Nullable="false" />
+          <Property Name="ActiveSalSum" Type="Boolean" Nullable="false" />
+          <Property Name="PresetCostCenterId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserRelDisplayType" Type="Byte" Nullable="false" />
+          <Property Name="FeeAcctAttrId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EMail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LvId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsVirtualDept" Type="Boolean" Nullable="false" />
+          <Property Name="DHrmOrgId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AttScopeId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SalScopeId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FIValiFromDate" Type="Int32" Nullable="false" />
+          <Property Name="FIValiToDate" Type="Int32" Nullable="false" />
+          <Property Name="LeaderHrmOrgId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ViceLeaderHrmOrgId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UpdateKey" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SumDeptId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="comGroupPerson">
+          <Key>
+            <PropertyRef Name="PersonId" />
+          </Key>
+          <Property Name="PersonId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PersonName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MarriedStatus" Type="Byte" Nullable="false" />
+          <Property Name="BloodType" Type="Int32" Nullable="false" />
+          <Property Name="Birthday" Type="Int32" Nullable="false" />
+          <Property Name="Sex" Type="Byte" Nullable="false" />
+          <Property Name="EverName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NickName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ShengXiao" Type="Int32" Nullable="false" />
+          <Property Name="Constellation" Type="Int32" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HomePhone" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MSNNo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="QQNo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EMail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatorId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreateTime" Type="Int64" Nullable="false" />
+          <Property Name="LastOperatorId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastOperateTime" Type="Int64" Nullable="false" />
+          <Property Name="Remark" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AttachementCount" Type="Int16" Nullable="false" />
+          <Property Name="InternalId" Type="Int64" Nullable="false" />
+          <Property Name="HasPostil" Type="Boolean" Nullable="false" />
+          <Property Name="TimesPrinted" Type="Int16" Nullable="false" />
+          <Property Name="TimesEmailSend" Type="Int16" Nullable="false" />
+          <Property Name="TimesExported" Type="Int16" Nullable="false" />
+          <Property Name="PermitterId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PermitTime" Type="Int64" Nullable="false" />
+          <Property Name="PermitState" Type="Byte" Nullable="false" />
+          <Property Name="FlowState" Type="Byte" Nullable="false" />
+          <Property Name="VaryState" Type="Byte" Nullable="false" />
+          <Property Name="MergeOutState" Type="Byte" Nullable="false" />
+          <Property Name="AuthorizedId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CurrentState" Type="Byte" Nullable="false" />
+          <Property Name="IsInUsed" Type="Boolean" Nullable="false" />
+          <Property Name="MnemonicId" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IDAwardOrg" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IDPlace" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Anniversary" Type="Int32" Nullable="false" />
+          <Property Name="CountryId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OrigHomeplace" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NationId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PoliticsStatusId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EngName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Homeplace" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MilitaryService" Type="Int16" Nullable="false" />
+          <Property Name="Stature" Type="Int16" Nullable="false" />
+          <Property Name="Weight" Type="Single" Nullable="false" />
+          <Property Name="Hobby" Type="String" MaxLength="400" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Abhorrer" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Speciality" Type="String" MaxLength="400" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MiniBlog" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsSmoker" Type="Byte" Nullable="false" />
+          <Property Name="BodyCheckCyc" Type="Int32" Nullable="false" />
+          <Property Name="LastBodyCheckDate" Type="Int32" Nullable="false" />
+          <Property Name="OtherSkill" Type="String" MaxLength="400" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Character" Type="String" MaxLength="400" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AutoAnalysis" Type="String" MaxLength="400" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LeftEyesight" Type="Single" Nullable="false" />
+          <Property Name="RightEyesignt" Type="Single" Nullable="false" />
+          <Property Name="EyeState" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DiffColor" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Fax" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UpdateKey" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsBlackList" Type="Boolean" Nullable="false" />
+          <Property Name="PMail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HighestEduId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SpecialityId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LINE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="comPerson">
+          <Key>
+            <PropertyRef Name="HrmOrgId" />
+            <PropertyRef Name="PersonId" />
+          </Key>
+          <Property Name="HrmOrgId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SalCompanyId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PersonId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="GroupId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BelongOrgId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DeptId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BelongGroupId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ServiceStatus" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PostOrgId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PostId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PositionId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OfficePhone" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Ext" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Office" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="InductionDate" Type="Int32" Nullable="false" />
+          <Property Name="Probation" Type="Int16" Nullable="false" />
+          <Property Name="FormalDate" Type="Int32" Nullable="false" />
+          <Property Name="BandhDate" Type="Int32" Nullable="false" />
+          <Property Name="RestorationDate" Type="Int32" Nullable="false" />
+          <Property Name="DimissionDate" Type="Int32" Nullable="false" />
+          <Property Name="CreatorId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreateTime" Type="Int64" Nullable="false" />
+          <Property Name="LastOperatorId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastOperateTime" Type="Int64" Nullable="false" />
+          <Property Name="Remark" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AttachementCount" Type="Int16" Nullable="false" />
+          <Property Name="InternalId" Type="Int64" Nullable="false" />
+          <Property Name="HasPostil" Type="Boolean" Nullable="false" />
+          <Property Name="TimesPrinted" Type="Int16" Nullable="false" />
+          <Property Name="TimesEmailSend" Type="Int16" Nullable="false" />
+          <Property Name="TimesExported" Type="Int16" Nullable="false" />
+          <Property Name="PermitterId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PermitTime" Type="Int64" Nullable="false" />
+          <Property Name="PermitState" Type="Byte" Nullable="false" />
+          <Property Name="FlowState" Type="Byte" Nullable="false" />
+          <Property Name="VaryState" Type="Byte" Nullable="false" />
+          <Property Name="MergeOutState" Type="Byte" Nullable="false" />
+          <Property Name="IsInUsed" Type="Boolean" Nullable="false" />
+          <Property Name="AuthorizedId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CurrentState" Type="Byte" Nullable="false" />
+          <Property Name="MnemonicId" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PositionGradeId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PositionLevelId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SalaryMethodId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SalaryModeId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BeginWorkDate" Type="Int32" Nullable="false" />
+          <Property Name="WorkMonths" Type="Int32" Nullable="false" />
+          <Property Name="IsOpeningData" Type="Boolean" Nullable="false" />
+          <Property Name="IsRedeployed" Type="Boolean" Nullable="false" />
+          <Property Name="IsRealOpeningData" Type="Boolean" Nullable="false" />
+          <Property Name="ValidityFromDate" Type="Int32" Nullable="false" />
+          <Property Name="ValidityToDate" Type="Int32" Nullable="false" />
+          <Property Name="ComWorkMonths" Type="Int32" Nullable="false" />
+          <Property Name="FirstInductionDate" Type="Int32" Nullable="false" />
+          <Property Name="CostCompanyId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="InsurCompanyId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="InsurType" Type="Byte" Nullable="false" />
+          <Property Name="UpdateKey" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContractCompId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PreFormalDate" Type="Int32" Nullable="false" />
+          <Property Name="InsurCityId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ContractBeginDate" Type="Int32" Nullable="false" />
+          <Property Name="ContractPeriod" Type="Int32" Nullable="false" />
+          <Property Name="ContractEndDate" Type="Int32" Nullable="false" />
+          <Property Name="FlowDept" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CostCenterId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IDKind" Type="Byte" Nullable="false" />
+          <Property Name="IDNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IDValidityFromDate" Type="Int32" Nullable="false" />
+          <Property Name="IDValidityToDate" Type="Int32" Nullable="false" />
+          <Property Name="IsContainDesign" Type="Boolean" Nullable="false" />
+          <Property Name="AttScopeId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SalScopeId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsNotIncludeNums" Type="Boolean" Nullable="false" />
+          <Property Name="PayCompanyId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PayType" Type="Byte" Nullable="false" />
+          <Property Name="ContractType" Type="Byte" Nullable="false" />
+          <Property Name="IsPigeonhole_RENAME" Type="Boolean" />
+          <Property Name="PigeonholeConditionInfo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="PersonTypeId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsPigeonhole" Type="Byte" Nullable="false" />
+          <Property Name="WorkAge" Type="Int32" Nullable="false" />
+          <Property Name="FromSourceTag" Type="Int32" Nullable="false" />
+          <Property Name="FromBillNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FromRowCode" Type="Int32" Nullable="false" />
+          <Property Name="ContractState" Type="Byte" Nullable="false" />
+          <Property Name="ExpiryDate" Type="Int32" Nullable="false" />
+          <Property Name="SignCount" Type="Int32" Nullable="false" />
+          <Property Name="PeriodKind" Type="Byte" Nullable="false" />
+          <Property Name="WorkCityId" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="T8ERPEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="comDepartment" EntityType="Self.comDepartment" />
+          <EntitySet Name="comGroupPerson" EntityType="Self.comGroupPerson" />
+          <EntitySet Name="comPerson" EntityType="Self.comPerson" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="T8ERPModelStoreContainer" CdmEntityContainer="T8ERPEntities">
+          <EntitySetMapping Name="comDepartment">
+            <EntityTypeMapping TypeName="T8ERPModel.comDepartment">
+              <MappingFragment StoreEntitySet="comDepartment">
+                <ScalarProperty Name="DeptId" ColumnName="DeptId" />
+                <ScalarProperty Name="DeptShortName" ColumnName="DeptShortName" />
+                <ScalarProperty Name="DeptName" ColumnName="DeptName" />
+                <ScalarProperty Name="DepartmentCategory" ColumnName="DepartmentCategory" />
+                <ScalarProperty Name="ValidityFromDate" ColumnName="ValidityFromDate" />
+                <ScalarProperty Name="ValidityToDate" ColumnName="ValidityToDate" />
+                <ScalarProperty Name="JobScheduleId" ColumnName="JobScheduleId" />
+                <ScalarProperty Name="Lv" ColumnName="Lv" />
+                <ScalarProperty Name="ParentDeptId" ColumnName="ParentDeptId" />
+                <ScalarProperty Name="RootDeptId" ColumnName="RootDeptId" />
+                <ScalarProperty Name="DeptOrder" ColumnName="DeptOrder" />
+                <ScalarProperty Name="CreatorId" ColumnName="CreatorId" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="LastOperatorId" ColumnName="LastOperatorId" />
+                <ScalarProperty Name="LastOperateTime" ColumnName="LastOperateTime" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="AttachementCount" ColumnName="AttachementCount" />
+                <ScalarProperty Name="InternalId" ColumnName="InternalId" />
+                <ScalarProperty Name="HasPostil" ColumnName="HasPostil" />
+                <ScalarProperty Name="TimesPrinted" ColumnName="TimesPrinted" />
+                <ScalarProperty Name="TimesEmailSend" ColumnName="TimesEmailSend" />
+                <ScalarProperty Name="TimesExported" ColumnName="TimesExported" />
+                <ScalarProperty Name="PermitterId" ColumnName="PermitterId" />
+                <ScalarProperty Name="PermitTime" ColumnName="PermitTime" />
+                <ScalarProperty Name="PermitState" ColumnName="PermitState" />
+                <ScalarProperty Name="FlowState" ColumnName="FlowState" />
+                <ScalarProperty Name="VaryState" ColumnName="VaryState" />
+                <ScalarProperty Name="MergeOutState" ColumnName="MergeOutState" />
+                <ScalarProperty Name="IsInUsed" ColumnName="IsInUsed" />
+                <ScalarProperty Name="AuthorizedId" ColumnName="AuthorizedId" />
+                <ScalarProperty Name="CurrentState" ColumnName="CurrentState" />
+                <ScalarProperty Name="MnemonicId" ColumnName="MnemonicId" />
+                <ScalarProperty Name="OrgId" ColumnName="OrgId" />
+                <ScalarProperty Name="LeaderId" ColumnName="LeaderId" />
+                <ScalarProperty Name="AttCalendarId" ColumnName="AttCalendarId" />
+                <ScalarProperty Name="AttRangeId" ColumnName="AttRangeId" />
+                <ScalarProperty Name="ViceLeaderId" ColumnName="ViceLeaderId" />
+                <ScalarProperty Name="DesignQty" ColumnName="DesignQty" />
+                <ScalarProperty Name="DesignQtyFemale" ColumnName="DesignQtyFemale" />
+                <ScalarProperty Name="ActiveSalSum" ColumnName="ActiveSalSum" />
+                <ScalarProperty Name="PresetCostCenterId" ColumnName="PresetCostCenterId" />
+                <ScalarProperty Name="UserRelDisplayType" ColumnName="UserRelDisplayType" />
+                <ScalarProperty Name="FeeAcctAttrId" ColumnName="FeeAcctAttrId" />
+                <ScalarProperty Name="EMail" ColumnName="EMail" />
+                <ScalarProperty Name="LvId" ColumnName="LvId" />
+                <ScalarProperty Name="IsVirtualDept" ColumnName="IsVirtualDept" />
+                <ScalarProperty Name="DHrmOrgId" ColumnName="DHrmOrgId" />
+                <ScalarProperty Name="AttScopeId" ColumnName="AttScopeId" />
+                <ScalarProperty Name="SalScopeId" ColumnName="SalScopeId" />
+                <ScalarProperty Name="FIValiFromDate" ColumnName="FIValiFromDate" />
+                <ScalarProperty Name="FIValiToDate" ColumnName="FIValiToDate" />
+                <ScalarProperty Name="LeaderHrmOrgId" ColumnName="LeaderHrmOrgId" />
+                <ScalarProperty Name="ViceLeaderHrmOrgId" ColumnName="ViceLeaderHrmOrgId" />
+                <ScalarProperty Name="UpdateKey" ColumnName="UpdateKey" />
+                <ScalarProperty Name="SumDeptId" ColumnName="SumDeptId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="comGroupPerson">
+            <EntityTypeMapping TypeName="T8ERPModel.comGroupPerson">
+              <MappingFragment StoreEntitySet="comGroupPerson">
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="PersonName" ColumnName="PersonName" />
+                <ScalarProperty Name="MarriedStatus" ColumnName="MarriedStatus" />
+                <ScalarProperty Name="BloodType" ColumnName="BloodType" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="EverName" ColumnName="EverName" />
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="ShengXiao" ColumnName="ShengXiao" />
+                <ScalarProperty Name="Constellation" ColumnName="Constellation" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="HomePhone" ColumnName="HomePhone" />
+                <ScalarProperty Name="MSNNo" ColumnName="MSNNo" />
+                <ScalarProperty Name="QQNo" ColumnName="QQNo" />
+                <ScalarProperty Name="EMail" ColumnName="EMail" />
+                <ScalarProperty Name="CreatorId" ColumnName="CreatorId" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="LastOperatorId" ColumnName="LastOperatorId" />
+                <ScalarProperty Name="LastOperateTime" ColumnName="LastOperateTime" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="AttachementCount" ColumnName="AttachementCount" />
+                <ScalarProperty Name="InternalId" ColumnName="InternalId" />
+                <ScalarProperty Name="HasPostil" ColumnName="HasPostil" />
+                <ScalarProperty Name="TimesPrinted" ColumnName="TimesPrinted" />
+                <ScalarProperty Name="TimesEmailSend" ColumnName="TimesEmailSend" />
+                <ScalarProperty Name="TimesExported" ColumnName="TimesExported" />
+                <ScalarProperty Name="PermitterId" ColumnName="PermitterId" />
+                <ScalarProperty Name="PermitTime" ColumnName="PermitTime" />
+                <ScalarProperty Name="PermitState" ColumnName="PermitState" />
+                <ScalarProperty Name="FlowState" ColumnName="FlowState" />
+                <ScalarProperty Name="VaryState" ColumnName="VaryState" />
+                <ScalarProperty Name="MergeOutState" ColumnName="MergeOutState" />
+                <ScalarProperty Name="AuthorizedId" ColumnName="AuthorizedId" />
+                <ScalarProperty Name="CurrentState" ColumnName="CurrentState" />
+                <ScalarProperty Name="IsInUsed" ColumnName="IsInUsed" />
+                <ScalarProperty Name="MnemonicId" ColumnName="MnemonicId" />
+                <ScalarProperty Name="IDAwardOrg" ColumnName="IDAwardOrg" />
+                <ScalarProperty Name="IDPlace" ColumnName="IDPlace" />
+                <ScalarProperty Name="Anniversary" ColumnName="Anniversary" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="OrigHomeplace" ColumnName="OrigHomeplace" />
+                <ScalarProperty Name="NationId" ColumnName="NationId" />
+                <ScalarProperty Name="PoliticsStatusId" ColumnName="PoliticsStatusId" />
+                <ScalarProperty Name="EngName" ColumnName="EngName" />
+                <ScalarProperty Name="Homeplace" ColumnName="Homeplace" />
+                <ScalarProperty Name="MilitaryService" ColumnName="MilitaryService" />
+                <ScalarProperty Name="Stature" ColumnName="Stature" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Hobby" ColumnName="Hobby" />
+                <ScalarProperty Name="Abhorrer" ColumnName="Abhorrer" />
+                <ScalarProperty Name="Speciality" ColumnName="Speciality" />
+                <ScalarProperty Name="MiniBlog" ColumnName="MiniBlog" />
+                <ScalarProperty Name="IsSmoker" ColumnName="IsSmoker" />
+                <ScalarProperty Name="BodyCheckCyc" ColumnName="BodyCheckCyc" />
+                <ScalarProperty Name="LastBodyCheckDate" ColumnName="LastBodyCheckDate" />
+                <ScalarProperty Name="OtherSkill" ColumnName="OtherSkill" />
+                <ScalarProperty Name="Character" ColumnName="Character" />
+                <ScalarProperty Name="AutoAnalysis" ColumnName="AutoAnalysis" />
+                <ScalarProperty Name="LeftEyesight" ColumnName="LeftEyesight" />
+                <ScalarProperty Name="RightEyesignt" ColumnName="RightEyesignt" />
+                <ScalarProperty Name="EyeState" ColumnName="EyeState" />
+                <ScalarProperty Name="DiffColor" ColumnName="DiffColor" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UpdateKey" ColumnName="UpdateKey" />
+                <ScalarProperty Name="IsBlackList" ColumnName="IsBlackList" />
+                <ScalarProperty Name="PMail" ColumnName="PMail" />
+                <ScalarProperty Name="HighestEduId" ColumnName="HighestEduId" />
+                <ScalarProperty Name="SpecialityId" ColumnName="SpecialityId" />
+                <ScalarProperty Name="LINE" ColumnName="LINE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="comPerson">
+            <EntityTypeMapping TypeName="T8ERPModel.comPerson">
+              <MappingFragment StoreEntitySet="comPerson">
+                <ScalarProperty Name="HrmOrgId" ColumnName="HrmOrgId" />
+                <ScalarProperty Name="SalCompanyId" ColumnName="SalCompanyId" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+                <ScalarProperty Name="BelongOrgId" ColumnName="BelongOrgId" />
+                <ScalarProperty Name="DeptId" ColumnName="DeptId" />
+                <ScalarProperty Name="BelongGroupId" ColumnName="BelongGroupId" />
+                <ScalarProperty Name="ServiceStatus" ColumnName="ServiceStatus" />
+                <ScalarProperty Name="PostOrgId" ColumnName="PostOrgId" />
+                <ScalarProperty Name="PostId" ColumnName="PostId" />
+                <ScalarProperty Name="PositionId" ColumnName="PositionId" />
+                <ScalarProperty Name="OfficePhone" ColumnName="OfficePhone" />
+                <ScalarProperty Name="Ext" ColumnName="Ext" />
+                <ScalarProperty Name="Office" ColumnName="Office" />
+                <ScalarProperty Name="InductionDate" ColumnName="InductionDate" />
+                <ScalarProperty Name="Probation" ColumnName="Probation" />
+                <ScalarProperty Name="FormalDate" ColumnName="FormalDate" />
+                <ScalarProperty Name="BandhDate" ColumnName="BandhDate" />
+                <ScalarProperty Name="RestorationDate" ColumnName="RestorationDate" />
+                <ScalarProperty Name="DimissionDate" ColumnName="DimissionDate" />
+                <ScalarProperty Name="CreatorId" ColumnName="CreatorId" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="LastOperatorId" ColumnName="LastOperatorId" />
+                <ScalarProperty Name="LastOperateTime" ColumnName="LastOperateTime" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="AttachementCount" ColumnName="AttachementCount" />
+                <ScalarProperty Name="InternalId" ColumnName="InternalId" />
+                <ScalarProperty Name="HasPostil" ColumnName="HasPostil" />
+                <ScalarProperty Name="TimesPrinted" ColumnName="TimesPrinted" />
+                <ScalarProperty Name="TimesEmailSend" ColumnName="TimesEmailSend" />
+                <ScalarProperty Name="TimesExported" ColumnName="TimesExported" />
+                <ScalarProperty Name="PermitterId" ColumnName="PermitterId" />
+                <ScalarProperty Name="PermitTime" ColumnName="PermitTime" />
+                <ScalarProperty Name="PermitState" ColumnName="PermitState" />
+                <ScalarProperty Name="FlowState" ColumnName="FlowState" />
+                <ScalarProperty Name="VaryState" ColumnName="VaryState" />
+                <ScalarProperty Name="MergeOutState" ColumnName="MergeOutState" />
+                <ScalarProperty Name="IsInUsed" ColumnName="IsInUsed" />
+                <ScalarProperty Name="AuthorizedId" ColumnName="AuthorizedId" />
+                <ScalarProperty Name="CurrentState" ColumnName="CurrentState" />
+                <ScalarProperty Name="MnemonicId" ColumnName="MnemonicId" />
+                <ScalarProperty Name="PositionGradeId" ColumnName="PositionGradeId" />
+                <ScalarProperty Name="PositionLevelId" ColumnName="PositionLevelId" />
+                <ScalarProperty Name="SalaryMethodId" ColumnName="SalaryMethodId" />
+                <ScalarProperty Name="SalaryModeId" ColumnName="SalaryModeId" />
+                <ScalarProperty Name="BeginWorkDate" ColumnName="BeginWorkDate" />
+                <ScalarProperty Name="WorkMonths" ColumnName="WorkMonths" />
+                <ScalarProperty Name="IsOpeningData" ColumnName="IsOpeningData" />
+                <ScalarProperty Name="IsRedeployed" ColumnName="IsRedeployed" />
+                <ScalarProperty Name="IsRealOpeningData" ColumnName="IsRealOpeningData" />
+                <ScalarProperty Name="ValidityFromDate" ColumnName="ValidityFromDate" />
+                <ScalarProperty Name="ValidityToDate" ColumnName="ValidityToDate" />
+                <ScalarProperty Name="ComWorkMonths" ColumnName="ComWorkMonths" />
+                <ScalarProperty Name="FirstInductionDate" ColumnName="FirstInductionDate" />
+                <ScalarProperty Name="CostCompanyId" ColumnName="CostCompanyId" />
+                <ScalarProperty Name="InsurCompanyId" ColumnName="InsurCompanyId" />
+                <ScalarProperty Name="InsurType" ColumnName="InsurType" />
+                <ScalarProperty Name="UpdateKey" ColumnName="UpdateKey" />
+                <ScalarProperty Name="ContractCompId" ColumnName="ContractCompId" />
+                <ScalarProperty Name="PreFormalDate" ColumnName="PreFormalDate" />
+                <ScalarProperty Name="InsurCityId" ColumnName="InsurCityId" />
+                <ScalarProperty Name="ContractBeginDate" ColumnName="ContractBeginDate" />
+                <ScalarProperty Name="ContractPeriod" ColumnName="ContractPeriod" />
+                <ScalarProperty Name="ContractEndDate" ColumnName="ContractEndDate" />
+                <ScalarProperty Name="FlowDept" ColumnName="FlowDept" />
+                <ScalarProperty Name="CostCenterId" ColumnName="CostCenterId" />
+                <ScalarProperty Name="IDKind" ColumnName="IDKind" />
+                <ScalarProperty Name="IDNo" ColumnName="IDNo" />
+                <ScalarProperty Name="IDValidityFromDate" ColumnName="IDValidityFromDate" />
+                <ScalarProperty Name="IDValidityToDate" ColumnName="IDValidityToDate" />
+                <ScalarProperty Name="IsContainDesign" ColumnName="IsContainDesign" />
+                <ScalarProperty Name="AttScopeId" ColumnName="AttScopeId" />
+                <ScalarProperty Name="SalScopeId" ColumnName="SalScopeId" />
+                <ScalarProperty Name="IsNotIncludeNums" ColumnName="IsNotIncludeNums" />
+                <ScalarProperty Name="PayCompanyId" ColumnName="PayCompanyId" />
+                <ScalarProperty Name="PayType" ColumnName="PayType" />
+                <ScalarProperty Name="ContractType" ColumnName="ContractType" />
+                <ScalarProperty Name="IsPigeonhole_RENAME" ColumnName="IsPigeonhole_RENAME" />
+                <ScalarProperty Name="PigeonholeConditionInfo" ColumnName="PigeonholeConditionInfo" />
+                <ScalarProperty Name="PersonTypeId" ColumnName="PersonTypeId" />
+                <ScalarProperty Name="IsPigeonhole" ColumnName="IsPigeonhole" />
+                <ScalarProperty Name="WorkAge" ColumnName="WorkAge" />
+                <ScalarProperty Name="FromSourceTag" ColumnName="FromSourceTag" />
+                <ScalarProperty Name="FromBillNo" ColumnName="FromBillNo" />
+                <ScalarProperty Name="FromRowCode" ColumnName="FromRowCode" />
+                <ScalarProperty Name="ContractState" ColumnName="ContractState" />
+                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+                <ScalarProperty Name="SignCount" ColumnName="SignCount" />
+                <ScalarProperty Name="PeriodKind" ColumnName="PeriodKind" />
+                <ScalarProperty Name="WorkCityId" ColumnName="WorkCityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
