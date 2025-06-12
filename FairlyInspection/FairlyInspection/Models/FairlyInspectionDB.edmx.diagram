@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e761df9b6b9f43968a31b3c8fb5a1119" Name="Diagram1" ZoomLevel="73">
+        <EntityTypeShape EntityType="InspectionModel.Admin" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" FillColor="Plum" />
+        <EntityTypeShape EntityType="InspectionModel.ItemAssign" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" FillColor="DarkSeaGreen" />
+        <EntityTypeShape EntityType="InspectionModel.Interlock" Width="1.5" PointX="0.75" PointY="4.75" FillColor="224, 224, 224" />
+        <EntityTypeShape EntityType="InspectionModel.SendSequence" Width="1.5" PointX="2.75" PointY="4.75" FillColor="224, 224, 224" />
+        <EntityTypeShape EntityType="InspectionModel.ItemLogs" Width="1.5" PointX="6.75" PointY="0.75" FillColor="DarkSeaGreen" />
+        <EntityTypeShape EntityType="InspectionModel.Items" Width="1.5" PointX="4.75" PointY="0.75" FillColor="DarkSeaGreen" />
+        <EntityTypeShape EntityType="InspectionModel.ItemLogsImage" Width="1.5" PointX="8.75" PointY="0.75" FillColor="DarkSeaGreen" />
+        <EntityTypeShape EntityType="InspectionModel.CheckingItemLogsImage" Width="1.5" PointX="6.75" PointY="11.5" FillColor="SteelBlue" />
+        <EntityTypeShape EntityType="InspectionModel.CheckingInspectors" Width="1.5" PointX="4.75" PointY="4.75" FillColor="CadetBlue" />
+        <EntityTypeShape EntityType="InspectionModel.CheckingPoint" Width="1.5" PointX="2.75" PointY="7.875" FillColor="SkyBlue" IsExpanded="true" />
+        <EntityTypeShape EntityType="InspectionModel.CheckingItem" Width="1.5" PointX="4.75" PointY="7.875" FillColor="SteelBlue" />
+        <EntityTypeShape EntityType="InspectionModel.CheckingPointLog" Width="1.5" PointX="2.75" PointY="11.5" FillColor="SkyBlue" />
+        <EntityTypeShape EntityType="InspectionModel.CheckingItemLog" Width="1.5" PointX="4.75" PointY="11.5" FillColor="SteelBlue" />
+        <EntityTypeShape EntityType="InspectionModel.CheckingPath" Width="1.5" PointX="0.75" PointY="7.875" FillColor="PowderBlue" />
+        <EntityTypeShape EntityType="InspectionModel.CheckingPathLog" Width="1.5" PointX="0.75" PointY="11.5" FillColor="PowderBlue" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
