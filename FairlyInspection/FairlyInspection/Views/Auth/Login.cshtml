@@ -1,0 +1,30 @@
+﻿@model FairlyInspection.Areas.Admin.ViewModels.Auth.LoginView
+@{
+    ViewBag.Title = "Login";
+}
+<div id="main" style="width:50%;">
+    <section>
+        @using (Html.BeginForm("Login", "Auth", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <div class="fields">
+                <div class="field">
+                    <h3>帳號</h3>
+                    @Html.TextBoxFor(model => model.Account, new { @class = "", @placeholder = "帳號", @style = "" })
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                    @Html.ValidationMessageFor(model => model.Account, "", new { @class = "text-danger" })
+                </div>
+                <div class="field">
+                    <h3>密碼</h3>
+                    @Html.TextBoxFor(model => model.Password, new { @type = "password", @class = "", @placeholder = "密碼", @style = "" })
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <ul class="actions">
+                <li><input type="submit" value="登入" /></li>
+            </ul>
+        }
+    </section>
+</div>
+

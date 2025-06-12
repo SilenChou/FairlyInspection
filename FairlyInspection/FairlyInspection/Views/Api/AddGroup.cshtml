@@ -1,0 +1,96 @@
+﻿@model FairlyInspection.Models.MessageView
+
+@{
+
+}
+
+<div id="main">
+    <article class="post featured">
+        <header>
+            <h3>
+                <a href="">
+                    LINE Notify
+                </a>
+            </h3>
+        </header>
+        <ul class="actions special">
+            <li><a href="#" class="button" id="subscribe_line">綁定LINE Notify通知</a></li>
+            @Html.HiddenFor(model => model.ClientID)
+            @Html.HiddenFor(model => model.ClientSecret)
+            @Html.HiddenFor(model => model.CallbackUrl)
+        </ul>
+    </article>
+</div>
+
+
+@*<section class="header-height py-5 min-vh-100">
+        <div class="wrap justify-center txt-center txt-lg">
+            <div class="col-m-auto">
+                <h2 class="txt-line txt-sans-ultrabold txt-heading">LINE Notify</h2>
+                <p class="txt-subtitle txt-bold">&times;</p>
+                <div class="mb-3">
+                    <svg class="img-fluid mr-1" width="40" height="40">
+                        <use xlink:href="/Content/img/sprite.svg#won"></use>
+                    </svg><img class="img-fluid" src="/Content/img/logo.png" alt="佛乘大法" />
+                </div>
+                <h3 class="mb-2" style="font-weight:700">- 啟動訊息推播 -</h3>
+                <p class="mb-2">歡迎加入訂閱通知<br />掌握最新佛乘大法訊息</p><a class="btn btn-line btn-lg txt-sans-normal rounded-0" href="#" id="subscribe_line">使用LINE登入</a>
+                @Html.HiddenFor(model => model.ClientID)
+                @Html.HiddenFor(model => model.ClientSecret)
+                @Html.HiddenFor(model => model.CallbackUrl)
+            </div>
+        </div>
+    </section>*@
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.1/jquery.min.js"></script>
+<script>
+    $(function () {
+        $('#subscribe_line').on('click', function () {
+            Auth();
+        });
+        //Auth();
+    });
+
+    function Auth() {
+        var client_id = $('#ClientID').val();// || 'fcHLxktEHt5ZsUqLJM06dY';
+        var client_secret = $('#ClientSecret').val();// || 'WTSNikXj5CgA3wwpkwk1hufXIfIGkrc68zCoQJzHxMb';
+        var callback_url = $('#CallbackUrl').val();// || 'http://linenotify.cmind.com.tw//Home/Notify';
+        if (client_id == null && client_id == "") {
+            alert('[Client ID] missed !')
+            return false;
+        }
+
+        if (client_secret == null && client_secret == "") {
+            alert('[Client Secret] missed !')
+            return false;
+        }
+
+        if (callback_url == null && callback_url == "") {
+            alert('[Callback URL] missed !')
+            return false;
+        }
+
+        @*$.ajax({
+            url: "@Url.Action("SetNotifyInfo", "Home")",
+            type: 'POST',
+            dataType: "text",
+            data: {
+                client_id: client_id,
+                client_secret: client_secret,
+                callback_url: callback_url,
+            },
+            success: function (data) {
+                console.log(data);
+            }
+        });*@
+
+        var URL = 'https://notify-bot.line.me/oauth/authorize?';
+        URL += 'response_type=code';
+        URL += '&client_id=' + client_id;
+        URL += '&redirect_uri=' + callback_url;
+        URL += '&scope=notify';
+        URL += '&state=abcde';
+
+        window.location.href = URL;
+    }
+</script>

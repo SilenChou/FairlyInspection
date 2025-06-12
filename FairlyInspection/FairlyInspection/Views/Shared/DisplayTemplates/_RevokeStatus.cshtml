@@ -1,0 +1,7 @@
+﻿@model Boolean
+@{
+    var statusStyle = Model ? "background-color:#ff5959; color: white; font-weight: bold;" : "";
+    var statusDisplay = Model ? "撤銷" : "";
+}
+
+<span class="label" style="padding:3px; @statusStyle">@statusDisplay</span>

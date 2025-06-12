@@ -1,0 +1,8 @@
+﻿@model Boolean
+@{
+    var statusStyle = Model ? "button primary" : "button primary";
+    var statusDisplay = Model ? "已解決" : "處理中";
+    var statusCss = Model ? "#00ab74" : "#855454";
+}
+
+<span class="label @statusStyle" style="background-color:@statusCss;">@statusDisplay</span>

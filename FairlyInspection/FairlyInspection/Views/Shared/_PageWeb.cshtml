@@ -1,0 +1,56 @@
+﻿@model FairlyInspection.Models.Others.Page
+@{
+    var prePageDisable = Model.CurrentPage == 1;
+    var prePageDisableCss = prePageDisable ? "disabled" : null;
+    var prePage = (Model.CurrentPage - 1);
+
+    var nextPageDisable = Model.CurrentPage == Model.TotalPages;
+    var nextPageDisableCss = nextPageDisable ? "disabled" : null;
+    var nextPage = (Model.CurrentPage + 1);
+
+    var currentPage = Model.CurrentPage;
+
+    var start = (Model.CurrentPage - 1) * Model.PageSize + 1;
+    var end = start + (Model.Count - 1);
+
+    int showPagesCount = 2;
+    int showPageStart = Math.Max(Model.CurrentPage - showPagesCount, 1);
+    int showPageEnd = Math.Min(Model.CurrentPage + showPagesCount, Model.TotalPages);
+}
+
+
+<div class="dataTables_paginate paging_simple_numbers">
+
+    <div class="pagination">
+        @if (currentPage != 1)
+        {
+            <a href="#" class="paginate_button page previous">Prev</a>
+        }
+        @if (showPageStart > 1)
+        {
+            <a href="#" class="paginate_button page active">1</a>
+        }
+        @if (showPageStart > 2)
+        {
+            <span class="extra">&hellip;</span>
+        }
+        @for (int i = showPageStart; i <= showPageEnd; i++)
+        {
+            var currentPageActive = (i == currentPage) ? "active" : null;
+            <a href="#" class="paginate_button page @currentPageActive" data-pager="@i">@i</a>
+        }
+        @if (showPageEnd < Model.TotalPages - 1)
+        {
+            <span class="extra">&hellip;</span>
+        }
+        @if (showPageEnd != Model.TotalPages)
+        {
+            <a href="#" class="paginate_button page" data-pager="@Model.TotalPages">@Model.TotalPages</a>
+        }
+        @if (currentPage < Model.TotalPages)
+        {
+            <a href="#" class="paginate_button page next">Next</a>
+        }
+    </div>
+
+</div>
