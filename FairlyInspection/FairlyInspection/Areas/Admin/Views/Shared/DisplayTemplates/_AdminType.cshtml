@@ -1,0 +1,19 @@
+﻿@model Int32?
+@{
+    var statusStyle = "";
+    var statusDisplay = FairlyInspection.Utility.Helpers.EnumHelper.GetDescription((FairlyInspection.Models.AdminType)Model);
+    switch (Model)
+    {
+        case 1:
+            statusStyle = "bg-black";
+            break;
+        case 2:
+            statusStyle = "bg-orange";
+            break;
+        case 3:
+            statusStyle = "bg-gray";
+            break;
+    }
+}
+
+<span class="label @statusStyle">@statusDisplay</span>

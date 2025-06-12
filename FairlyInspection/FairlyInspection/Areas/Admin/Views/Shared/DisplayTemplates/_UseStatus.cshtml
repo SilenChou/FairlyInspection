@@ -1,0 +1,7 @@
+﻿@model Boolean
+@{
+    var statusStyle = Model ? "label-info" : "label label-default";
+    var statusDisplay = Model ? "是" : "否";
+}
+
+<span class="label @statusStyle">@statusDisplay</span>

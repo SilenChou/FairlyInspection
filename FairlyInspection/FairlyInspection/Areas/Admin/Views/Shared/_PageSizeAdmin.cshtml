@@ -1,0 +1,23 @@
+﻿@model FairlyInspection.Models.Others.Page
+@{
+    var pageSize = Model.PageSize;
+    var pageSizeOptions = new int[4] { 10, 25, 50, 100 };
+}
+<div class="row">
+    <div class="col-sm-6">
+        <div class="dataTables_length" id="">
+            <label>
+                Show
+                <select id="js-pageSize" aria-controls="example1" class="form-control input-sm">
+                    @for (int i = 0; i < pageSizeOptions.Length; i++)
+                    {
+                        var selected = @pageSizeOptions[i] == Model.PageSize ? "selected" : null;
+                        <option value="@pageSizeOptions[i].ToString()" @selected>@pageSizeOptions[i]</option>
+                    }
+                </select> entries
+            </label>
+        </div>
+    </div>
+    <div class="col-sm-6">
+    </div>
+</div>

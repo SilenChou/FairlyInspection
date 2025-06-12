@@ -1,0 +1,28 @@
+﻿@model Int32
+@{
+    var statusStyle ="label-default";
+    var statusDisplay = "未處理";
+    switch (Model)
+    {
+        case 1:
+            statusStyle = "label-default";
+            statusDisplay = "未處理";
+            break;
+        case 2:
+            statusStyle = "label-warning progress_rightin";
+            statusDisplay = "正處理...";
+            break;
+        case 3:
+            statusStyle = "label-success";
+            statusDisplay = "已處理";
+            break;
+    }
+}
+<style>
+    .progress_rightin {
+        animation: progress-bar-stripes 2s linear infinite;
+        background-image: linear-gradient( 45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
+    }
+</style>
+
+<span class="label @statusStyle">@statusDisplay</span>

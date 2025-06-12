@@ -1,0 +1,361 @@
+﻿@model FairlyInspection.Areas.Admin.ViewModels.Home.OverViewView
+@{
+    var adminInfo = FairlyInspection.Utility.Helpers.AdminInfoHelper.GetAdminInfo();
+    var type = adminInfo.Type;
+    var acoount = adminInfo.Account;
+    //FairlyInspection.Utility.Helpers.EnumHelper enumHelper = new FairlyInspection.Utility.Helpers.EnumHelper();
+}
+
+@section styles
+{
+    <style>
+        .tree-li {
+            border-radius: 3px;
+            border: 2px solid #ededed;
+            margin: 5px !important;
+        }
+
+        /*.tree-li:hover {
+                background-color: white;
+                border: 2px solid cadetblue;
+            }*/
+
+        .level-0:hover {
+            background-color: white;
+            border-color: indianred;
+        }
+
+        .level-1:hover {
+            background-color: white;
+            border-color: cadetblue;
+        }
+
+        .level-3:hover {
+            background-color: white;
+            border-color: #bdcd5a;
+        }
+
+        .last_li:hover {
+            background-color: white;
+            padding: 1px;
+            border: 2px solid #bdcd5a;
+            border-radius: 3px;
+        }
+
+        .last_li .items_u {
+            background-color: #f1f1f1;
+            border-radius: 3px;
+            border: solid 2px;
+            border-color: indianred;
+        }
+
+        .last_li .items_ul:hover {
+            border-color: #808080;
+            background-color: white !important;
+        }
+
+        .items_ul {
+            color: #4a4a4a !important;
+        }
+    </style>
+}
+<section class="content-header">
+    <h1>
+        Fairly Inspection 巡檢管理
+    </h1>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h4>待巡查項目</h4>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        @*<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>*@
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-sm-12 table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    @*<tr>
+                                            <th></th>
+                                            <th width="15%">巡檢人員</th>
+                                            <th>@FairlyInspection.Utility.Helpers.EnumHelper.GetDescription(FairlyInspection.Models.LevelClass.Factory)</th>
+                                            <th>@FairlyInspection.Utility.Helpers.EnumHelper.GetDescription(FairlyInspection.Models.LevelClass.System)</th>
+                                            <th>@FairlyInspection.Utility.Helpers.EnumHelper.GetDescription(FairlyInspection.Models.LevelClass.Machine)</th>
+                                            <th>@FairlyInspection.Utility.Helpers.EnumHelper.GetDescription(FairlyInspection.Models.LevelClass.Components)</th>
+                                            <th>@FairlyInspection.Utility.Helpers.EnumHelper.GetDescription(FairlyInspection.Models.LevelClass.Parts)</th>
+                                            <th>@FairlyInspection.Utility.Helpers.EnumHelper.GetDescription(FairlyInspection.Models.LevelClass.Detail)</th>
+                                            <th>預計巡檢日期</th>
+                                            <th></th>
+                                        </tr>*@
+                                    <tr>
+                                        <th>完成狀態</th>
+                                        <th>路線</th>
+                                        <th>巡檢人員</th>
+                                        <th>預計巡檢日期</th>
+                                        <th>上次巡檢</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @*@if (Model.PendingList.Count() > 0)
+                                    {
+                                        DateTime now = DateTime.Now;
+                                        foreach (var item in Model.PendingList.OrderByDescending(q => q.NextCheckDate).ThenBy(q => q.Inspectors))
+                                        {
+                                            int parentCount = item.ParentBreadList == null ? 0 : item.ParentBreadList.Count();
+                                            var allInspector = item.Inspectors.Split(',');
+                                            string border = item.NextCheckDate <= now ? "background-color:#ff5c5c26; border-radius:3px;" : "";
+                                            <tr style="@border">
+                                                    <th>
+                                                        @if (item.NextCheckDate <= now)
+                                                        {
+                                                            <label class="label label-warning"><i class="fa fa-exclamation-circle"></i> 逾時</label>
+                                                        }
+                                                    </th>
+                                                    <td>
+                                                        @foreach (var insp in allInspector)
+                                                        {
+                                                            if (!string.IsNullOrEmpty(insp))
+                                                            {
+                                                                <label class="label label-warning bg-olive" style="margin: 2px;">@insp</label>
+                                                            }
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        @if (parentCount > 2)
+                                                        {//廠區
+                                                            <label class="label label-danger" style="margin: 2px;">
+                                                                @item.ParentBreadList.Where(q => q.Level == (int)FairlyInspection.Models.LevelClass.Factory).FirstOrDefault().Title
+                                                            </label>
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        @if (parentCount > 2)
+                                                        {//設備系統
+                                                            <label class="label label-default bg-light-blue" style="margin: 2px;">
+                                                                @item.ParentBreadList.Where(q => q.Level == (int)FairlyInspection.Models.LevelClass.System).FirstOrDefault().Title
+                                                            </label>
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        @if (parentCount > 2)
+                                                        {//機器
+                                                            <label class="label label-default bg-light-blue" style="margin: 2px;">
+                                                                @item.ParentBreadList.Where(q => q.Level == (int)FairlyInspection.Models.LevelClass.Machine).FirstOrDefault().Title
+                                                            </label>
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        @if (parentCount > 3)
+                                                        {//組件
+                                                            <label class="label label-default bg-light-blue" style="margin: 2px;">
+                                                                @item.ParentBreadList.Where(q => q.Level == (int)FairlyInspection.Models.LevelClass.Components).FirstOrDefault().Title
+                                                            </label>
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        @if (parentCount > 4)
+                                                        {//零件
+                                                            <label class="label label-default bg-light-blue" style="margin: 2px;">
+                                                                @item.ParentBreadList.Where(q => q.Level == (int)FairlyInspection.Models.LevelClass.Parts).FirstOrDefault().Title
+                                                            </label>
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        @if (parentCount > 5)
+                                                        {//細部零件
+                                                            <label class="label label-default bg-light-blue" style="margin: 2px;">
+                                                                @item.ParentBreadList.Where(q => q.Level == (int)FairlyInspection.Models.LevelClass.Detail).FirstOrDefault().Title
+                                                            </label>
+                                                        }
+                                                    </td>
+                                                    <td>@item.NextCheckDate</td>
+                                                    <td> @Html.ActionLink("前往紀錄列表", "Index", "ItemLogsAdmin", new { ItemID = item.ItemID, Level = item.Level }, new { @class = "btn btn-info", @style = "margin-left:10px;" })</td>
+                                                </tr>
+                                        }
+                                    }*@
+                                    @if (Model.CheckingPendingList.Count() > 0)
+                                    {
+                                        foreach (var item in Model.CheckingPendingList)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @if (Convert.ToDateTime(item.NextDate) > DateTime.Now)
+                                                    {
+                                                        <label class="label label-success">已完成</label>
+                                                    }
+                                                    else
+                                                    {
+                                                        <label class="label label-warning bg-orange">待檢查</label>
+                                                    }
+                                                </td>
+                                                <td>
+                                                    @item.Title
+                                                </td>
+                                                <td>
+                                                    <!--巡檢人員-->
+                                                    <span class="text text-warning">調度員 : </span> @item.Dispatcher
+                                                    <br />
+                                                    <span class="text text-warning">巡檢人員 : </span> @item.Inspectors
+                                                </td>
+                                                <td>
+                                                    @Convert.ToDateTime(item.NextDate).ToString("yyyy-MM-dd")
+                                                    <br />                                                   
+                                                    <small style="color:darkgray;">@(item.Interval)@FairlyInspection.Utility.Helpers.EnumHelper.GetDescription((FairlyInspection.Models.TimeUnit)item.IntervalType) 1次</small>
+                                                </td>
+                                                <td>
+                                                    @if (item.CompleteDate != null)
+                                                    {
+                                                        @Convert.ToDateTime(item.CompleteDate).ToString("yyyy-MM-dd")
+                                                    }
+                                                </td>
+                                                <td>
+                                                    @*@Html.ActionLink("新增紀錄", "Edit", "CheckingPathLogAdmin", new { PathID = item.ID }, new { @class = "btn btn-default bg-navy" })*@
+                                                    @if (adminInfo.ID == item.Creater)
+                                                    {
+                                                        @Html.ActionLink("查看路線", "Edit", "CheckingPathAdmin", new { id = item.ID }, new { @class = "btn btn-primary" })
+                                                    }
+                                                    @Html.ActionLink("紀錄列表", "Index", "CheckingPathLogAdmin", new { PathID = item.ID }, new { @class = "btn btn-info" })
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*<div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h4>巡檢紀錄</h4>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <ul class="sidebar-menu" data-widget="tree" style="font-size:18px;">
+                                <li class="treeview">
+                                    <a href="#" class="main_ul items_ul" id="0_0_0">
+                                        <span style="font-weight:bold;">+ 菲力工業股份有限公司</span>
+                                        <span class="pull-right-container">
+                                            <i class="fa fa-angle-double-right pull-right"></i>
+                                        </span>
+                                    </a>
+                                    <ul class="treeview-menu level_0">
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+</section>
+
+@section scripts{
+    <script>
+        $(function () {
+            $('.main_ul').on('click', function () {
+                var htmlId = $(this).attr('id');
+                var thisInfoArr = htmlId.split('_');
+                //var parentId = thisInfoArr[0];
+                var level = parseInt(thisInfoArr[1]) + 1;
+                var Id = thisInfoArr[2];
+                GetItems(Id, level, htmlId);
+            });
+        })
+
+        function GetItems(parentId, level, htmlId) {
+            $.ajax({
+                url: "/ItemsAdmin/GetItems",
+                type: 'POST',
+                dataType: "json",
+                async: false,
+                data: {
+                    parentId: parentId,
+                    level: level
+                },
+                success: function (data) {
+                    console.log(data);
+                    var htmlStr = '';
+                    $.each(data, function (i, v) {
+                        var title = v.Title + ' + ';
+                        var linkurl = '';
+                        var target = '';
+                        var treeview = 'treeview';
+                        var lightbg = '';
+                        var maxLevel = parseInt('@((int)FairlyInspection.Models.LevelClass.Machine))');
+                        //var item_ul_span = '#ffe37c';
+                        var label_style = 'danger';
+                        var li_style = 'level-0';
+                        if (level > 1) {
+                            label_style = 'default bg-light-blue';
+                            li_style = 'level-1';
+                        }
+                        if (v.isLatest == true && v.Level > maxLevel) {
+                            linkurl = `/Admin/ItemLogsAdmin/Index?ItemID=${v.ID}&Level=${v.Level}`;
+                            target = '_blank';
+                            treeview = 'last_li';
+                            lightbg = '';
+                            title = '【' + v.Title + '】查看巡檢紀錄 >>'
+                            //item_ul_span = '#92d2ff';
+                            label_style = 'success';
+                            li_style = 'level-3';
+                        }
+                        var childId = `${parentId}_${level}_${v.ID}`;
+                        htmlStr += `<li class="${treeview} tree-li ${li_style}">
+                                                    <a href="${linkurl}" target="${target}" class="items_ul parend_${parentId}" id="${childId}" style="${lightbg}">
+                                                    <span class="label label-${label_style}" style="border-radius: 3px; padding: 3px 10px;">${title}</span>`;
+
+                        if (linkurl == '') {
+                            htmlStr += `<span class="pull-right-container">
+                                                        <i class="fa fa-angle-double-right pull-right"></i>
+                                                    </span>`;
+                        }
+
+                        //if (v.isLight == true) {
+                        //    htmlStr += `<span class="pull-left-container">
+                        //                                    <span class="label label-warning bg-orange pull-left"><i class="fa fa-exclamation"></i></span>
+                        //                                </span>`;
+                        //}
+
+                        htmlStr += `</a>
+                                                <ul class="treeview-menu level_${level}">
+
+                                                </ul>
+                                            </li >`;
+
+                    });
+                    var thisul = $('#' + htmlId);
+                    thisul.next().empty();
+                    thisul.next().html(htmlStr);
+
+                    $('.parend_' + parentId).on('click', function () {
+                        var htmlId = $(this).attr('id');
+                        var thisInfoArr = htmlId.split('_');
+                        var level = parseInt(thisInfoArr[1]) + 1;
+                        var Id = thisInfoArr[2];
+                        GetItems(Id, level, htmlId);
+                    });
+
+                }
+            });
+        }
+    </script>
+
+    <script>
+
+    </script>
+}

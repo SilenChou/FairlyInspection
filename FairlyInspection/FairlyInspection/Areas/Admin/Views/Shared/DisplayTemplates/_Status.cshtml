@@ -1,0 +1,7 @@
+﻿@model Boolean
+@{
+    var statusStyle = Model ? "label-success" : "label label-danger";
+    var statusDisplay = Model ? "啟用" : "停用";
+}
+
+<span class="label @statusStyle">@statusDisplay</span>

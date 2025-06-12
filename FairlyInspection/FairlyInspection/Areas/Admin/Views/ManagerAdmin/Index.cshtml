@@ -1,0 +1,158 @@
+﻿@model FairlyInspection.Areas.Admin.ViewModels.Manager.ManagerIndexView
+@{
+    ViewBag.Title = "Index";
+}
+
+<section class="content-header">
+    <h1>
+        分派管理
+    </h1>
+</section>
+
+<section class="content">
+    <div class="row">
+        <!--搜尋條件-->
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">搜尋</h3>
+                </div>
+                @using (Html.BeginForm("Index", "ManagerAdmin", FormMethod.Get, new { @class = "form-horizontal" }))
+                {
+                <div class="box-body">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Account, new { @class = "col-sm-2 control-label" })
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(model => model.Account, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Type, new { @class = "col-sm-2 control-label" })
+                            <div class="col-sm-10">
+                                @Html.DropDownListFor(model => model.Type, Model.AdminTypeOptions, "---類別---", new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Status, new { @class = "col-sm-2 control-label" })
+                            <div class="col-sm-10">
+                                @Html.EditorFor(model => model.Status, "StatusDropDownList", new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-info">搜尋</button>
+                                @Html.ActionLink("新增人員", "Edit", "ManagerAdmin", new { }, new { @class = "btn btn-primary" })
+                            </div>
+                        </div>
+                </div>
+                }
+            </div>
+        </div>
+
+        <!--清單-->
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">人員列表</h3>
+                </div>
+                <div class="box-body">
+                    <div id="dataList_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                        @Html.Partial("_PageSizeAdmin", Model.PageResult)
+                        <div class="row">
+                            <div class="col-sm-12 table-responsive">
+                                <table class="table table-bordered table-hover dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.PageResult.Data.FirstOrDefault().ID)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.PageResult.Data.FirstOrDefault().Name)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.PageResult.Data.FirstOrDefault().Account)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.PageResult.Data.FirstOrDefault().Type)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.PageResult.Data.FirstOrDefault().Status)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.PageResult.Data.FirstOrDefault().UpdateDate)
+                                            </th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.PageResult.Data.FirstOrDefault().ID)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.PageResult.Data.FirstOrDefault().Name)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.PageResult.Data.FirstOrDefault().Account)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.PageResult.Data.FirstOrDefault().Type)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.PageResult.Data.FirstOrDefault().Status)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.PageResult.Data.FirstOrDefault().UpdateDate)
+                                            </th>
+                                            <th></th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        @foreach (var item in Model.PageResult.Data)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @item.ID
+                                                </td>
+                                                <td>
+                                                    @item.Name
+                                                </td>
+                                                <td>
+                                                    @item.Account
+                                                </td>
+                                                <td>
+                                                    @FairlyInspection.Utility.Helpers.EnumHelper.GetDescription((FairlyInspection.Models.AdminType)item.Type)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(model => item.Status, "_Status")
+                                                </td>
+                                                <td>
+                                                    @item.UpdateDate.ToString("yyyy/MM/dd HH:mm")
+                                                </td>
+                                                <td>
+                                                    @Html.ActionLink("檢視", "Edit", "ManagerAdmin", new { id = item.ID }, new { @class = "btn btn-primary" })
+                                                    @if (item.Type == 2)
+                                                    {
+                                                        @Html.ActionLink("刪除", "Delete", "ManagerAdmin", new { id = item.ID }, new { @class = "btn btn-danger js-delete-confirm" })
+                                                    }
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        @Html.Partial("_PageAdmin", Model.PageResult)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section scripts{
+    <script src="~/Scripts/Admin/page.js"></script>
+}

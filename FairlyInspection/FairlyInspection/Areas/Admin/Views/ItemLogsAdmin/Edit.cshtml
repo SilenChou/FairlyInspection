@@ -1,0 +1,161 @@
+﻿@model FairlyInspection.Areas.Admin.ViewModels.ItemLogs.ItemLogsView
+@{
+    string title = "新增巡檢紀錄";
+    var adminInfo = FairlyInspection.Utility.Helpers.AdminInfoHelper.GetAdminInfo();
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        <strong>巡檢紀錄管理</strong>
+        <a class="btn btn-default bg-navy" href="@Url.Action("Index", "ItemsAdmin")" style="border-radius:5px;">菲力巡檢項目</a>
+        <i class="fa fa-arrow-right" style="margin: 5px;"></i>
+        @if (Model.ParentBreadList.Count() > 0)
+        {
+            foreach (var item in Model.ParentBreadList)
+            {
+                string btnclass = item.Level == 1 ? " btn-danger" : " btn-default bg-light-blue";
+                <a class="btn @btnclass" href="@Url.Action("Edit", "ItemsAdmin", new { id = item.ID })" style="border-radius:5px;">@item.Title</a>
+                <i class="fa fa-arrow-right" style="margin: 5px;"></i>
+            }
+        }
+        <a class="btn btn-success" href="@Url.Action("Index", "ItemLogsAdmin", new { itemID = Model.ParentBreadList.LastOrDefault().ID})" style="border-radius:5px;">紀錄列表</a>
+        <i class="fa fa-arrow-right" style="margin: 5px;"></i>
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">@title</h3>
+                </div>
+
+                @using (Html.BeginForm("Edit", "ItemLogsAdmin", FormMethod.Post, new { enctype = "multipart/form-data", @id = "EditForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.ID)
+                    @Html.HiddenFor(model => model.Creater)
+                    @Html.HiddenFor(model => model.ItemID)
+                    @Html.HiddenFor(model => model.ItemSystem)
+                    @Html.HiddenFor(model => model.Level)
+                    @Html.HiddenFor(model => model.IsLatest)
+                    @Html.HiddenFor(model => model.ItemTitle)
+
+                    <div class="box-body">
+                        <div class="nav-tabs-custom">
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="tab_0">
+
+                                    <div class="box box-default box-solid">
+                                        <div class="box-header with-border">
+                                            <h3 class="box-title">巡檢項目</h3>
+                                            @*<div class="box-tools pull-right">
+                                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                                    <i class="fa fa-minus"></i>
+                                                </button>
+                                            </div>*@
+
+                                        </div>
+
+                                        <div class="box-body">
+                                            <div class="form-group">
+                                                @Html.TextBoxFor(model => model.ItemTitle, new { @class = "form-control", @maxlength = "50", @disabled = "true" })
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.TextAreaFor(model => model.ItemDescription, new { @class = "form-control", @disabled = "true", @rows = 6 })
+                                            </div>
+                                        </div>
+
+                                    </div>                                   
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CheckResult, new { @class = "control-label" })<br />
+                                        @Html.RadioButtonFor(model => model.CheckResult, (int)FairlyInspection.Models.LogCheckResult.Normal, new { @style = "margin:5px;" }) 正常
+                                        @Html.RadioButtonFor(model => model.CheckResult, (int)FairlyInspection.Models.LogCheckResult.Defect, new { @style = "margin:5px;" }) 故障/缺損
+                                        @Html.RadioButtonFor(model => model.CheckResult, (int)FairlyInspection.Models.LogCheckResult.Missing, new { @style = "margin:5px;" }) 遺失
+                                        @Html.RadioButtonFor(model => model.CheckResult, (int)FairlyInspection.Models.LogCheckResult.Others, new { @style = "margin:5px;" }) 其他
+                                        @*@Html.DropDownListFor(model => model.CheckResult, Model.CheckResultOptions, "---類別---", new { @class = "form-control" })*@
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Pics)
+                                        @Html.TextBoxFor(model => model.PicsFiles, "", new { @class = "form-control", @type = "file", @multiple = "true", @accept = "image/x-png,image/jpeg", @style = "height: 100% !important;" })
+                                        @*<input type="file" id="pics" name="pics" accept="image/x-png,image/jpeg" multiple>*@
+                                        <code>請上傳總和不超過10MB的檔案</code>
+                                        @Html.ValidationMessageFor(model => model.Pics, "", new { @class = "text-danger" })
+                                        <br />
+                                        @if (Model.PicList != null && Model.PicList.Count() > 0)
+                                        {
+                                            foreach (var item in Model.PicList)
+                                            {
+                                                if (item.Pics.Contains(".mp4"))
+                                                {
+                                                    <video width="60%" preload="auto" controls="autoplay">
+                                                        <source src="~/FileUploads/ItemLogsPhoto/@item.Pics" type="video/mp4">
+                                                    </video>
+                                                }
+                                                else if (item.Pics.Contains(".mp4"))
+                                                {
+                                                    <iframe src="~/FileUploads/ItemLogsPhoto/@item.Pics" width="60%"></iframe>
+                                                }
+                                                else
+                                                {
+                                                    <img src="~/FileUploads/ItemLogsPhoto/@item.Pics" class="img-thumbnail" style="width:400px" />
+                                                }
+
+                                                @Html.ActionLink("刪除檔案", "DeleteFile", "ItemLogsAdmin", new { id = item.ID }, new { @class = "btn btn-danger js-delete-confirm" })
+                                                <br />
+                                            }
+                                        }
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Description)
+                                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @rows = "6" })
+                                    </div>
+
+                                    @if (Model.ID == 0)
+                                    {
+                                        @Html.HiddenFor(model => model.CreateDate)
+                                    }
+                                    else
+                                    {
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.CreateDate)
+                                            @if (Model.IsLatest)
+                                            {
+                                                <strong class="text-green">［最新巡檢紀錄］</strong>
+                                            }
+                                            <input type="text" class="form-control" value="@Model.CreateDate.ToString("yyyy/MM/dd HH:mm")" disabled />
+                                        </div>
+                                    }
+
+
+                                </div>
+                                <!-- /.tab-pane -->
+                            </div>
+                            <!-- /.tab-content -->
+                        </div>
+                        <!-- nav-tabs-custom -->
+                    </div>
+
+                    <div class="box-footer">
+                        @if (adminInfo.ID == Model.Creater || Model.ID == 0)
+                        {
+                            <button id="SaveBtn" type="submit" class="btn btn-primary">儲存</button>
+                        }
+                        @Html.ActionLink("取消/回列表", "Index", "ItemLogsAdmin", new { ItemID = Model.ItemID }, new { @class = "btn btn-default" })
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+@section scripts{
+
+}

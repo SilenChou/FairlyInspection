@@ -1,0 +1,192 @@
+﻿@model FairlyInspection.Areas.Admin.ViewModels.CheckingPathLog.CheckingItemLogView
+@{
+    string title = "新增檢查點";
+    var adminInfo = FairlyInspection.Utility.Helpers.AdminInfoHelper.GetAdminInfo();
+}
+
+@section styles{
+    <style>
+        .col-md-12 {
+            margin-top: 5px;
+        }
+    </style>
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        <strong>檢查點管理</strong>
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">@title</h3>
+                    <a class="btn btn-default" href="@Url.Action("Edit", "CheckingPathLogAdmin", new { id = Model.PathLogID, PathID = Model.PathID })">返回巡檢紀錄</a>
+                </div>
+
+                @using (Html.BeginForm("Edit", "CheckingItemLogAdmin", FormMethod.Post, new { enctype = "multipart/form-data", @id = "EditForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.ID)
+                    @Html.HiddenFor(model => model.PathID)
+                    @Html.HiddenFor(model => model.PointID)
+                    @Html.HiddenFor(model => model.ItemID)
+                    @Html.HiddenFor(model => model.PathLogID)
+                    @Html.HiddenFor(model => model.PointLogID)
+                    @Html.HiddenFor(model => model.CreateDate)
+
+                    <div class="box-body">
+                        <div class="nav-tabs-custom">
+                            <div class="tab-content" style="padding: 0px;">
+                                <div class="tab-pane active" id="tab_0">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.ItemInfo.Title)
+                                        @Html.TextBoxFor(model => model.ItemInfo.Title, new { @class = "form-control", @disabled = "true" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Remark)
+                                        @Html.TextAreaFor(model => model.Remark, new { @class = "form-control", @rows="5", @style="resize: none;" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Pics)
+                                        @Html.TextBoxFor(model => model.PicsFiles, "", new { @class = "form-control", @type = "file", @multiple = "true", @accept = "image/x-png,image/jpeg", @style = "height: 100% !important;" })
+                                        @*<input type="file" id="pics" name="pics" accept="image/x-png,image/jpeg" multiple>*@
+                                        <code>請上傳總和不超過10MB的檔案</code>
+                                        @Html.ValidationMessageFor(model => model.Pics, "", new { @class = "text-danger" })
+                                        <br />
+                                        @if (Model.PicList != null && Model.PicList.Count() > 0)
+                                        {
+                                            foreach (var item in Model.PicList)
+                                            {
+                                                if (item.Pics.Contains(".mp4"))
+                                                {
+                                                    <video width="60%" preload="auto" controls="autoplay">
+                                                        <source src="~/FileUploads/CheckingItemLogPhoto/@item.Pics" type="video/mp4">
+                                                    </video>
+                                                }
+                                                else if (item.Pics.Contains(".mp4"))
+                                                {
+                                                    <iframe src="~/FileUploads/CheckingItemLogPhoto/@item.Pics" width="60%"></iframe>
+                                                }
+                                                else
+                                                {
+                                                    <img src="~/FileUploads/CheckingItemLogPhoto/@item.Pics" class="img-thumbnail" style="width:400px" />
+                                                }
+
+                                                @Html.ActionLink("刪除檔案", "DeleteFile", "CheckingItemLogAdmin", new { id = item.ID }, new { @class = "btn btn-danger js-delete-confirm" })
+                                                <br />
+                                            }
+                                        }
+                                    </div>
+
+                                    @if (Model.ID == 0)
+                                    {
+                                        @Html.HiddenFor(model => model.CreateDate)
+                                    }
+                                    else
+                                    {
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.CreateDate)
+                                            <input type="text" class="form-control" value="@Model.CreateDate.ToString("yyyy/MM/dd HH:mm")" disabled />
+                                        </div>
+                                    }
+                                </div>
+                                <!-- /.tab-pane -->
+                            </div>
+                            <!-- /.tab-content -->
+                        </div>
+                        <!-- nav-tabs-custom -->
+                    </div>
+
+                    <div class="box-footer">
+                        @if (true)
+                        {
+                        <button id="SaveBtn" type="submit" class="btn btn-primary">儲存</button>
+                        }
+                        @Html.ActionLink("取消/回列表", "Index", "CheckingItemAdmin", new { PathID = Model.PathID }, new { @class = "btn btn-default" })
+                    </div>
+                }
+            </div>
+
+        </div>
+    </div>
+</section>
+
+@section scripts{
+    <script>
+        $(function () {
+            $('#add_item').on('click', function () {
+                AddItem();
+            });
+            $('#edit_item').on('click', function () {
+                EditItem($(this));
+            });
+
+            function AddItem() {
+                $('#item_id').val(0);
+                $('#item_pointid').val(parseInt($('#ID').val()));
+                $('#item_pathid').val(parseInt($('#PathID').val()));
+                $('#item_title').val('');
+                $('#item_description').val('');
+                $('#item_isonline').prop("checked", false);
+            }
+
+            function EditItem() {
+                $.ajax({
+                    url: "/Admin/CheckingItemAdmin/GetItem",
+                    type: 'POST',
+                    dataType: "json",
+                    async: false,
+                    data: {
+                        itemId: element.data('id')
+                    },
+                    success: function (response) {
+                        $('#item_id').val(response.ID);
+                        $('#item_pointid').val(response.ItemID);
+                        $('#item_title').val(response.Title);
+                        $('#item_description').val(response.Description);
+                        if (response.IsOnline == true) {
+                            $('#item_isonline').prop("checked", true);
+                        }
+                        else {
+                            $('#item_isonline').prop("checked", false);
+                        }
+                    }
+                });
+            }
+
+            $('#save_item').on('click', function () {
+                objData = {
+                    ID: parseInt($('#item_id').val()),
+                    ItemID: $('#ID').val(),
+                    PathID: $('#PathID').val(),
+                    Title: $('#item_title').val(),
+                    Description: $('#item_description').val(),
+                    IsOnline: $('#item_isonline').is(':checked'),
+                };
+
+                $.ajax({
+                    url: "/CheckingItemAdmin/SaveItem",
+                    type: 'POST',
+                    anysc: false,
+                    dataType: "text",
+                    data: objData,
+                    success: function (response) {
+                        toastr.success('資料已更新');
+                        $('#close_popup').click();
+                        location.reload();
+                    },
+                    error: function () {
+                        toastr.error('更新失敗');
+                    }
+                });
+            })
+        })
+    </script>
+}

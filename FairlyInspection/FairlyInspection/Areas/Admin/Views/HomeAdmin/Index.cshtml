@@ -1,0 +1,48 @@
+﻿@{
+    var adminInfo = FairlyInspection.Utility.Helpers.AdminInfoHelper.GetAdminInfo();
+    var type = adminInfo.Type;
+    var acoount = adminInfo.Account;
+}
+<section class="content-header">
+    <h1>
+        Fairly Inspection 巡檢管理
+    </h1>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-default">
+                <ul class="sidebar-menu" data-widget="tree" style="background-color: #222d32;">
+                    <li><a href="@Url.Action("OverView", "HomeAdmin")" style="color: #b8c7ce;"><i class="fa fa-book"></i> <span>巡檢管理</span></a></li>
+                    <li><a href="@Url.Action("Index", "CheckingPathAdmin")" style="color: #b8c7ce;"><i class="icon ion-merge"></i> <span>巡檢路線管理</span></a></li>
+                    <li><a href="@Url.Action("Index", "ItemsAdmin")" style="color: #b8c7ce;"><i class="icon ion-merge"></i> <span>巡檢項目管理</span></a></li>
+                    @if (type < (int)FairlyInspection.Models.AdminType.Inspector)
+                    {
+                        <li><a href="@Url.Action("Index", "ManagerAdmin")" style="color: #b8c7ce;"><i class="fa fa-user"></i> <span>分派人員管理</span></a></li>
+                    }
+
+                    <li class="header"></li>
+                    <li>
+                        <a href="@Url.Action("Logout", "AuthAdmin" )" style="color: #b8c7ce;">
+                            <i class="fa fa-arrow-circle-left"></i> <span>登出</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-aqua">
+                <div class="inner">
+                    <h3>前台連結</h3>
+                    <p>&nbsp;</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-android-desktop"></i>
+                </div>
+                <a href="@Request.Url.Scheme://@Request.Url.Authority" class="small-box-footer" target="_blank">前往網站前台<i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+    </div>
+</section>

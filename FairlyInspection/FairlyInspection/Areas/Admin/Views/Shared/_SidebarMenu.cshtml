@@ -1,0 +1,39 @@
+﻿@using FairlyInspection.Utility.Helpers
+@{
+    var adminInfo = FairlyInspection.Utility.Helpers.AdminInfoHelper.GetAdminInfo();
+    var type = adminInfo.Type;
+    var acoount = adminInfo.Account;
+}
+
+<section class="sidebar">
+    <div class="user-panel">
+        <div class="pull-left image" style=" padding: 6px 5px 5px 15px;">
+
+            <p class="img-circle"><i class="fa fa-user" style="color:white"></i></p>
+        </div>
+        <div class="pull-left info" style="line-height:1.5;">
+            @if (acoount != null)
+            {
+                <p>@acoount 【@adminInfo.Name】</p>
+            }
+
+        </div>
+    </div>
+    <ul class="sidebar-menu" data-widget="tree">
+        <li class="header">功能選單</li>
+        <li><a href="@Url.Action("OverView", "HomeAdmin")"><i class="fa fa-book"></i> <span>巡檢管理</span></a></li>
+        <li><a href="@Url.Action("Index", "CheckingPathAdmin")" style="color: #b8c7ce;"><i class="icon ion-merge"></i> <span>巡檢路線管理</span></a></li>
+        <li><a href="@Url.Action("Index", "ItemsAdmin")"><i class="fa fa-tags"></i> <span>巡檢項目管理</span></a></li>
+        @if (type < (int)FairlyInspection.Models.AdminType.Inspector)
+        {
+            <li><a href="@Url.Action("Index", "ManagerAdmin")"><i class="fa fa-user"></i> <span>分派人員管理</span></a></li>
+        }
+
+        <li class="header"></li>
+        <li>
+            <a href="@Url.Action("Logout", "AuthAdmin" )">
+                <i class="fa fa-arrow-circle-left"></i> <span>登出</span>
+            </a>
+        </li>
+    </ul>
+</section>

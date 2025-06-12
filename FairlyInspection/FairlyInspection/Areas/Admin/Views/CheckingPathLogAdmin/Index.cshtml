@@ -1,0 +1,185 @@
+﻿@model FairlyInspection.Areas.Admin.ViewModels.CheckingPathLog.CheckingPathLogIndexView
+@{
+    var adminInfo = FairlyInspection.Utility.Helpers.AdminInfoHelper.GetAdminInfo();
+}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        <strong>巡檢紀錄管理</strong>
+    </h1>
+</section>
+
+<section class="content">
+    <div class="row">
+        <!--搜尋條件-->
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">搜尋</h3>
+                </div>
+                @using (Html.BeginForm("Index", "CheckingPathLogAdmin", FormMethod.Get, new { @class = "form-horizontal" }))
+                {
+                    @Html.HiddenFor(model => model.PathID)
+                    <div class="box-body">
+                        <div class="form-group">
+                            @*@Html.LabelFor(model => model.Title, new { @class = "col-sm-2 control-label" })*@
+                            <label class="col-sm-2 control-label">搜尋</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(model => model.Title, new { @class = "form-control", @placeholder = "名稱" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.IsCompleted, new { @class = "col-sm-2 control-label" })
+                            <div class="col-sm-10">
+                                @Html.EditorFor(model => model.IsCompleted, "UseStatusDropDownList", new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-info">搜尋</button>
+                                @Html.ActionLink("新增", "Edit", "CheckingPathLogAdmin", new { PathID = Model.PathID }, new { @class = "btn btn-primary" })
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!--清單-->
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">紀錄列表</h3>
+                </div>
+                <div class="box-body">
+                    <div id="dataList_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                        @Html.Partial("_PageSizeAdmin", Model.PageResult)
+                        <div class="row">
+                            <div class="col-sm-12 table-responsive">
+                                <table class="table table-bordered table-hover dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th data-sorting="Title">
+                                                @Html.DisplayNameFor(x => x.Title)
+                                            </th>
+                                            <th>
+                                                巡檢間隔
+                                            </th>
+                                            <th data-sorting="Name">
+                                                @Html.DisplayNameFor(x => x.Name)
+                                            </th>
+                                            <th data-sorting="IsCompleted">
+                                                @Html.DisplayNameFor(x => x.IsCompleted)
+                                            </th>
+                                            <th data-sorting="CreateDate">
+                                                @Html.DisplayNameFor(x => x.CreateDate)
+                                            </th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.PageResult.Data)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <label class="label label-default bg-light-blue">@item.PathInfo.Title</label>
+                                                </td>
+                                                <td>
+                                                    @item.PathInfo.Interval @FairlyInspection.Utility.Helpers.EnumHelper.GetDescription((FairlyInspection.Models.TimeUnit)item.PathInfo.IntervalType)
+                                                </td>
+                                                <td>
+                                                    @item.Name
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(model => item.IsCompleted, "_UseStatus")
+                                                </td>
+                                                <td style="background-color: #b9dfcb;">
+                                                    @item.CreateDate.ToString("yyyy/MM/dd HH:mm")
+                                                </td>
+                                                <td>
+                                                    @Html.ActionLink("編輯", "Edit", "CheckingPathLogAdmin", new { id = item.ID, PathID = Model.PathID }, new { @class = "btn btn-primary", @style = "margin: 3px !important;" })
+
+                                                    @*@Html.ActionLink("刪除", "Delete", "CheckingPathLogAdmin", new { id = item.ID }, new { @class = "btn btn-danger js-delete-confirm", @style = "margin: 3px !important;" })*@
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th data-sorting="Title">
+                                                @Html.DisplayNameFor(x => x.Title)
+                                            </th>
+                                            <th>
+                                                巡檢間隔
+                                            </th>
+                                            <th data-sorting="Name">
+                                                @Html.DisplayNameFor(x => x.Name)
+                                            </th>
+                                            <th data-sorting="IsCompleted">
+                                                @Html.DisplayNameFor(x => x.IsCompleted)
+                                            </th>
+                                            <th data-sorting="CreateDate">
+                                                @Html.DisplayNameFor(x => x.CreateDate)
+                                            </th>
+                                            <th></th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                        @Html.Partial("_PageAdmin", Model.PageResult)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section scripts{
+    <script src="~/Scripts/Admin/page.js"></script>
+
+    <!--datetimepicker-->
+    @*<link href="~/Content/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+        <script src="~/Content/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js"></script>*@
+    <script>
+        $(function () {
+            //datetimepicker
+            setDateTime($("#StartDate"));
+            setDateTime($("#EndDate"));
+
+            //$.prototype.datetimepicker.DPGlobal.nonpunctuation = /[^ -\/:-@@\[-`{-~\t\n\rZ]+/g;
+            //var currentDate = new Date();
+            //currentDate.setMinutes(0, 0, 0);
+            //currentDate.setHours(currentDate.getHours() + currentDate.getTimezoneOffset() / 60);
+            //$('#StartDate').datetimepicker({
+            //    todayHighlight: true,
+            //    weekStart: 1,
+            //    minView: 0,
+            //    autoclose: true,
+            //    //pickerPosition: 'bottom-left',
+            //    format: 'yyyy/mm/dd hh:ii ',
+            //    //timezone: 'UTC',
+            //    startDate: currentDate,
+            //});
+            //$('#EndDate').datetimepicker({
+            //    todayHighlight: true,
+            //    weekStart: 1,
+            //    minView: 0,
+            //    autoclose: true,
+            //    //pickerPosition: 'bottom-left',
+            //    format: 'yyyy/mm/dd hh:ii ',
+            //    //timezone: 'UTC',
+            //    startDate: currentDate,
+            //});
+        });
+    </script>
+
+    <script src="~/Content/js/meeting.js"></script>
+    <script>
+        $(function () {
+           
+        });
+    </script>
+}
+
+

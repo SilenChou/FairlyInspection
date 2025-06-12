@@ -1,0 +1,15 @@
+﻿
+<script>
+    var result = '@TempData["Result"]';
+    if (null != result && '' != result) {
+        toastr.success(result);
+        console.log(result);
+        @{TempData["Result"] = null;}
+    }
+
+    var err = '@TempData["Error"]';
+    if (null != err && '' != err) {
+        toastr.error(err);
+        @{TempData["Error"] = null;}
+    }
+</script>

@@ -1,0 +1,119 @@
+﻿@model FairlyInspection.Areas.Admin.ViewModels.Items.ItemsView
+@{
+    ViewBag.Title = "Edit";
+    string title = Model.ID == 0 ? "新增" : "編輯";
+    var adminInfo = FairlyInspection.Utility.Helpers.AdminInfoHelper.GetAdminInfo();
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        <strong>巡檢項目管理</strong>
+        <a class="btn btn-default bg-navy" href="@Url.Action("Index", "ItemsAdmin")" style="border-radius:5px;">菲力巡檢項目</a>
+        @if (Model.ParentBreadList.Count() > 0)
+        {
+            foreach (var item in Model.ParentBreadList)
+            {
+                string btnclass = item.Level == 1 ? " btn-danger" : " btn-default bg-light-blue";
+                <i class="fa fa-arrow-right" style="margin: 5px;"></i>
+                <a class="btn @btnclass" href="@Url.Action("Edit", "ItemsAdmin", new { id = item.ID })" style="border-radius:5px;">@item.Title</a>
+            }
+        }
+        @*<label class="label label-default bg-blue-gradient">@Model.ParentStr</label>
+        <span>附屬@(Model.LevelStr)</span>*@
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">@title@Model.LevelStr</h3>
+                </div>
+
+                @using (Html.BeginForm("Edit", "ItemsAdmin", FormMethod.Post, new { enctype = "multipart/form-data", @id = "EditForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.ID)
+                    @Html.HiddenFor(model => model.Level)
+                    @Html.HiddenFor(model => model.ParentID)
+                    @Html.HiddenFor(model => model.CreateDate)
+                    @Html.HiddenFor(model => model.Creater)
+                    @Html.HiddenFor(model => model.UpdateDate)
+                    @Html.HiddenFor(model => model.Updater)
+
+                    <div class="box-body">
+                        <div class="nav-tabs-custom">
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="tab_0">
+                                    <div class="form-group">
+                                        @*@Html.LabelFor(model => model.ParentID)*@
+                                        <label>所屬上層</label>
+                                        @Html.TextBoxFor(model => model.ParentStr, new { @class = "form-control", @maxlength = "50", @disabled = "true" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Level)
+                                        @Html.TextBoxFor(model => model.LevelStr, new { @class = "form-control", @maxlength = "50", @disabled = "true" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Title)
+                                        @Html.TextBoxFor(model => model.Title, new { @class = "form-control", @maxlength = "50", @required = "true" })
+                                        @*@Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })*@
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Description)
+                                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @rows = "6" })
+                                    </div>
+                                    @if (Model.Level >= (int)FairlyInspection.Models.LevelClass.Machine && Model.MinLevel)
+                                    {
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Interval)
+                                            @Html.TextBoxFor(model => model.Interval, new { @class = "form-control", @maxlength = "50", @type = "number" })
+                                            @Html.ValidationMessageFor(model => model.Interval, "", new { @class = "text-danger" })
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        @Html.HiddenFor(model => model.Interval)
+                                    }
+                                    <div class="form-group">
+                                        <div class="form-check pretty p-switch p-fill" style="margin-bottom:10px;">
+                                            @Html.CheckBoxFor(model => model.IsOnline, new { @class = "form-check-input" })
+                                            <div class="state p-success">
+                                                @Html.LabelFor(model => model.IsOnline, new { @class = "form-check-label", @style = "font-weight:bold; " })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- /.tab-pane -->
+                            </div>
+                            <!-- /.tab-content -->
+                        </div>
+                        <!-- nav-tabs-custom -->
+                    </div>
+
+                    <div class="box-footer">
+                        <button id="SaveBtn" type="submit" class="btn btn-primary">儲存</button>
+                        @if (Model.ID != 0)
+                        {
+                            if (Model.Level < 5 && Model.ID != 0)
+                            {
+                                @Html.ActionLink("附屬" + FairlyInspection.Utility.Helpers.EnumHelper.GetDescription((FairlyInspection.Models.LevelClass)Model.Level + 1), "Index", "ItemsAdmin", new { ParentID = Model.ID, Level = Model.Level + 1 }, new { @class = "btn btn-info", @style = "margin: 3px !important;" })
+                            }
+                            @Html.ActionLink("巡檢紀錄", "Index", "ItemLogsAdmin", new { ItemID = Model.ID }, new { @class = "btn btn-success", @style = "margin: 3px !important;" })
+                        }
+                        @Html.ActionLink("取消/回列表", "Index", new { ParentID = Model.ParentID, Level = Model.Level }, new { @class = "btn btn-default" })
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+@section scripts{
+
+}

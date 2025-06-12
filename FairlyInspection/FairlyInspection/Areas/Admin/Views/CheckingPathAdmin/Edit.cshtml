@@ -1,0 +1,377 @@
+﻿@model FairlyInspection.Areas.Admin.ViewModels.CheckingPath.CheckingPathView
+@{
+    string title = "新增檢查路線";
+    var adminInfo = FairlyInspection.Utility.Helpers.AdminInfoHelper.GetAdminInfo();
+}
+
+@section styles{
+    <style>
+        .col-md-12 {
+            margin-top: 5px;
+        }
+    </style>
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        <strong>檢查路線管理</strong>
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">@title</h3>
+                </div>
+
+                @using (Html.BeginForm("Edit", "CheckingPathAdmin", FormMethod.Post, new { enctype = "multipart/form-data", @id = "EditForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.ID)
+                    @Html.HiddenFor(model => model.CreateDate)
+                    @Html.HiddenFor(model => model.Creater)
+
+                    <div class="box-body">
+                        <div class="nav-tabs-custom">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#tab_0" data-toggle="tab" data-index="0">路線資料</a></li>
+                                <li class=""><a href="#tab_1" data-toggle="tab" data-index="1">巡檢負責人員</a></li>
+                            </ul>
+                            <div class="tab-content" style="padding: 0px;">
+                                <div class="tab-pane active" id="tab_0">
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            @Html.LabelFor(model => model.Title)
+                                            @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            @Html.LabelFor(model => model.Description)
+                                            @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @rows = "6" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-3" style="margin-top: 10px;">
+                                            @Html.LabelFor(model => model.StartDate)
+                                            <input class="form-control" id="StartDate" name="StartDate" value="@Convert.ToDateTime(Model.StartDate).ToString("yyyy-MM-dd")" type="date" />
+                                            @Html.HiddenFor(model => model.StartDateValue)
+                                            @*@Html.TextBoxFor(model => model.StartDate, new { @class = "form-control", @value = Convert.ToDateTime(Model.StartDate).ToString("yyyy-MM-dd"), @type = "date" })*@
+                                        </div>
+                                        <div class="col-md-3" style="margin-top: 10px;">
+                                            @Html.LabelFor(model => model.Interval)
+                                            @Html.TextBoxFor(model => model.Interval, new { @class = "form-control", @type = "number" })
+                                        </div>
+                                        <div class="col-md-3" style="margin-top: 10px;">
+                                            @Html.LabelFor(model => model.IntervalType)
+                                            @Html.DropDownListFor(model => model.IntervalType, Model.TimeUnit, "---時間單位---", new { @class = "form-control" })
+                                        </div>
+                                        <div class="col-md-3" style="margin-top: 10px;">
+                                            @Html.LabelFor(model => model.NextDate)
+                                            <input class="form-control" id="NextDate" name="NextDate" value="@Convert.ToDateTime(Model.NextDate).ToString("yyyy-MM-dd")" type="date" disabled />
+                                            @Html.HiddenFor(model => model.NextDateValue)
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <div class="form-check pretty p-switch p-fill" style="margin-bottom:10px;">
+                                                @Html.CheckBoxFor(model => model.IsOnline, new { @class = "form-check-input" })
+                                                <div class="state p-success">
+                                                    @Html.LabelFor(model => model.IsOnline, new { @class = "form-check-label", @style = "font-weight:bold; " })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @if (Model.ID != 0)
+                                    {
+                                        <!--編輯/新增巡查點-->
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-sm-12 table-responsive" style="margin-top: 10px;">
+                                                    <button id="add_point" type="button" class="btn btn-success bg-olive" data-toggle="modal" data-target="#PointModal">新增巡查點</button>
+                                                    <table id="example2" class="table table-bordered table-hover dataTable" aria-describedby="example2_info">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>巡查地點</th>
+                                                                <th>排序</th>
+                                                                <th>啟用狀態</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="points_tbody">
+                                                            @if (Model.PointsList != null && Model.PointsList.Count() > 0)
+                                                            {
+                                                                for (int j = 0; j < Model.PointsList.Count(); j++)
+                                                                {
+                                                                    var item = Model.PointsList[j];
+                                                                    <tr id="point_id" data-id="@item.ID" class="point">
+                                                                        <td><input type="text" class="form-control point_title" value="@item.Title" disabled /></td>
+                                                                        <td><input type="text" class="form-control point_sort" value="@item.Sort" disabled /></td>
+                                                                        <td>
+                                                                            @if (item.IsOnline)
+                                                                            {
+                                                                                <label class="label label-success">啟用</label>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <label class="label label-default">停用</label>
+                                                                            }
+                                                                        </td>
+                                                                        <td>
+                                                                            <button class="btn btn-primary edit_point" type="button" data-toggle="modal" data-target="#PointModal" data-id="@item.ID">簡易編輯</button>
+                                                                            <a class="btn btn-default" href="@Url.Action("Edit", "CheckingPointAdmin", new { id = item.ID})">編輯</a>
+                                                                        </td>
+                                                                    </tr>
+                                                                }
+                                                            }
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <th>巡查地點</th>
+                                                                <th>排序</th>
+                                                                <th>啟用狀態</th>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+
+                                    @if (Model.ID == 0)
+                                    {
+                                        @Html.HiddenFor(model => model.CreateDate)
+                                    }
+                                    else
+                                    {
+                                        <div class="form-group">
+                                            <div class="col-md-3">
+                                                @Html.LabelFor(model => model.CreateDate)
+                                                <input type="text" class="form-control" value="@Model.CreateDate.ToString("yyyy/MM/dd HH:mm")" disabled />
+                                            </div>
+                                        </div>
+                                    }
+
+                                </div>
+                                <div class="tab-pane" id="tab_1">
+                                    @if (adminInfo.Type == (int)FairlyInspection.Models.AdminType.Dispatcher)
+                                    {
+                                        if (Model.ID == 0 || string.IsNullOrEmpty(Model.Inspectors))
+                                        {
+                                            @Html.HiddenFor(model => model.Dispatcher)
+                                        }
+                                        else
+                                        {
+                                            <div class="form-group">
+                                                <div class="col-md-7">
+                                                    @Html.LabelFor(model => model.Dispatcher)
+                                                    <input type="text" class="form-control" value="@Model.Dispatcher" disabled />
+                                                </div>
+                                            </div>
+                                        }
+
+                                        <div class="form-group">
+                                            <div class="col-md-7">
+                                                <label style="margin-top: 5px;">@Html.LabelFor(model => model.Inspectors)</label>
+                                                @Html.DropDownList("n", Model.InspectionPersonOptions, "---Select---", new { @class = "form-control js-Inspectors edit-ddl", @id = "js-signer-Inspectors" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                @Html.TextBoxFor(model => model.Inspectors, new Dictionary<string, object> { { "data-role", "tagsinput" }, { "class", "js-Inspectors" } })
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                                <!-- /.tab-pane -->
+                            </div>
+                            <!-- /.tab-content -->
+                        </div>
+                        <!-- nav-tabs-custom -->
+                    </div>
+
+                    <div class="box-footer">
+                        @if (adminInfo.ID == Model.Creater || Model.ID == 0)
+                        {
+                            <button id="SaveBtn" type="submit" class="btn btn-primary">儲存</button>
+                            @Html.ActionLink("紀錄列表", "Index", "CheckingPathLogAdmin", new { PathID = Model.ID }, new { @class = "btn btn-info" })
+                        }
+                        @Html.ActionLink("取消/回列表", "Index", "CheckingPathAdmin", new { }, new { @class = "btn btn-default" })
+                    </div>
+                }
+            </div>
+            <div class="modal fade" id="PointModal" tabindex="-1" aria-labelledby="PointModal" aria-hidden="true">
+                <div class="modal-dialog" style="max-width: 60%;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            <h3 class="modal-title">巡查點</h3>
+                        </div>
+                        <div class="modal-body">
+                            <div class="box-body">
+                                <input type="hidden" id="point_id" name="point_id" />
+                                <input type="hidden" id="point_pathid" name="point_pathid" />
+                                <div class="form-group d-none" style="margin-left:5px;">
+                                    <label>巡查點</label>
+                                    <input id="point_title" class="form-control" />
+                                </div>
+                                <div class="form-group d-none" style="margin-left:5px;">
+                                    <label>說明</label>
+                                    <textarea id="point_description" class="form-control"></textarea>
+                                </div>
+                                <div class="form-group d-none" style="margin-left:5px;">
+                                    <label>路線排序</label>
+                                    <input id="point_sort" class="form-control" type="number" />
+                                </div>
+                                <div class="form-group" style="margin-left:5px;">
+                                    <div class="form-check pretty p-switch p-fill" style="margin-bottom:10px; margin-top: 10px;">
+                                        <input class="form-check-input" type="checkbox" id="point_isonline" />
+                                        <div class="state p-success">
+                                            <label class="form-check-label" style="font-weight:bold;">啟用</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="save_point">儲存</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+@section scripts{
+    <script>
+        $(function () {
+            $('#add_point').on('click', function () {
+                AddPoint();
+            });
+            $('.edit_point').on('click', function () {
+                EditPoint($(this).data('id'));
+            });
+
+            //tags imput
+            var $selectedInspectorsStr = $('#Inspectors');
+            var remove;
+
+            //Inspectors
+            $selectedInspectorsStr.on('itemAdded', function (event) {
+                if (remove) {
+                    $selectedSigner.tagsinput('remove', remove);
+                    remove = '';
+                }
+            });
+            $('#js-signer-Inspectors').on('change', function () {
+                var selected = $('#js-signer-Inspectors option:selected');
+                var id = selected.val();
+                if (!id) {
+                    return;
+                }
+                //$selectedMaintID.tagsinput('add', selected.text());
+                $selectedInspectorsStr.tagsinput('add', selected.text());
+            });
+
+            function AddPoint() {
+                $('#point_id').val(0);
+                $('#point_pathid').val(element.data('id'));
+                $('#point_title').val('');
+                $('#point_description').val('');
+                $('#point_sort').val(0);
+                $('#point_isonline').prop("checked", false);
+            }
+
+            function EditPoint(id) {
+                //$('#edit_point').on('click', function () {
+                $.ajax({
+                    url: "/CheckingPointAdmin/GetPoint",
+                    type: 'POST',
+                    anysc: false,
+                    dataType: "json",
+                    data: {
+                        'id': id
+                    },
+                    success: function (response) {
+                        if (response == null) {
+                            toastr.error('失敗');
+                        }
+                        $('#point_id').val(response.ID);
+                        $('#point_pathid').val(response.PathID);
+                        $('#point_title').val(response.Title);
+                        $('#point_description').val(response.Description);
+                        $('#point_sort').val(response.Sort);
+                        if (response.IsOnline == true) {
+                            $('#point_isonline').prop("checked", true);
+                        }
+                        else {
+                            $('#point_isonline').prop("checked", false);
+                        }
+                    },
+                    error: function () {
+                        toastr.error('失敗');
+                    }
+                });
+                //    });
+            }
+
+            $('#save_point').on('click', function () {
+                objData = {
+                    ID: parseInt($('#point_id').val()),
+                    PathID: $('#ID').val(),
+                    Title: $('#point_title').val(),
+                    Description: $('#point_description').val(),
+                    Sort: parseInt($('#point_sort').val()),
+                    IsOnline: $('#point_isonline').is(':checked'),
+                };
+
+                $.ajax({
+                    url: "/CheckingPointAdmin/SavePoint",
+                    type: 'POST',
+                    anysc: false,
+                    dataType: "text",
+                    data: objData,
+                    success: function (response) {
+                        toastr.success('資料已更新');
+                        $('#close_popup').click();
+                        location.reload();
+                    },
+                    error: function () {
+                        toastr.error('更新失敗');
+                    }
+                });
+            })
+        })
+
+        //計算日期
+        setInterval(function () {
+            var startDate = new Date($('#StartDate').val());
+            var interval = parseInt($('#Interval').val());
+            var intervalType = parseInt($('#IntervalType').val());
+            switch (intervalType) {
+                case 1:
+                    startDate.setFullYear(startDate.getFullYear() + interval);
+                    break;
+                case 2:
+                    startDate.setMonth(startDate.getMonth() + interval);
+                    break;
+                case 3:
+                    startDate.setDate(startDate.getDate() + interval);
+                    break;
+            }
+            $('#StartDateValue').val(new Date($('#StartDate').val()).toISOString().split('T')[0]);
+            $('#NextDate').val(startDate.toISOString().split('T')[0]);
+            $('#NextDateValue').val(startDate.toISOString().split('T')[0]);
+        }, 3000);
+    </script>
+}

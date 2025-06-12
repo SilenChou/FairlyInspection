@@ -1,0 +1,11 @@
+﻿@model Boolean? 
+@{ 
+    var options = new List<SelectListItem>();
+    options.Add(new SelectListItem() { Text = "全", Value = "" });
+    options.Add(new SelectListItem() { Text = "啟用", Value = true.ToString() });
+    options.Add(new SelectListItem() { Text = "停用", Value = false.ToString() });
+
+    string css = ViewBag.@class ?? "";
+}
+
+@Html.DropDownListFor(m => m, options, new { @class = css })

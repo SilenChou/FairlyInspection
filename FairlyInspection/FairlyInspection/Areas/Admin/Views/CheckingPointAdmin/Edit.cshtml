@@ -1,0 +1,275 @@
+﻿@model FairlyInspection.Areas.Admin.ViewModels.CheckingPoint.CheckingPointView
+@{
+    string title = "新增檢查點";
+    var adminInfo = FairlyInspection.Utility.Helpers.AdminInfoHelper.GetAdminInfo();
+}
+
+@section styles{
+    <style>
+        .col-md-12 {
+            margin-top: 5px;
+        }
+    </style>
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        <strong>檢查點管理</strong>
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">@title</h3>
+                </div>
+
+                @using (Html.BeginForm("Edit", "CheckingPointAdmin", FormMethod.Post, new { enctype = "multipart/form-data", @id = "EditForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.ID)
+                    @Html.HiddenFor(model => model.PathID)
+
+                    <div class="box-body">
+                        <div class="nav-tabs-custom">
+                            <div class="tab-content" style="padding: 0px;">
+                                <div class="tab-pane active" id="tab_0">
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            @Html.LabelFor(model => model.Title)
+                                            @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            @Html.LabelFor(model => model.Description)
+                                            @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @rows = "6" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            @Html.LabelFor(model => model.Sort)
+                                            @Html.TextBoxFor(model => model.Sort, new { @class = "form-control", @type = "number" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <div class="form-check pretty p-switch p-fill" style="margin-bottom:10px;">
+                                                @Html.CheckBoxFor(model => model.IsOnline, new { @class = "form-check-input" })
+                                                <div class="state p-success">
+                                                    @Html.LabelFor(model => model.IsOnline, new { @class = "form-check-label", @style = "font-weight:bold; " })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @if (Model.ID != 0)
+                                    {
+                                        <!--編輯/新增項目-->
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-sm-12 table-responsive" style="margin-top: 10px;">
+                                                    <button id="add_item" type="button" class="btn btn-primary" data-toggle="modal" data-target="#ItemModal">新增項目</button>
+                                                    <table id="example2" class="table table-bordered table-hover dataTable" aria-describedby="example2_info">
+                                                        <thead>
+                                                            <tr>
+                                                                <th width="9%">項目</th>
+                                                                <th width="9%">啟用狀態</th>
+                                                                <th width="4%"></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="items_tbody">
+                                                            @if (Model.ItemList != null && Model.ItemList.Count() > 0)
+                                                            {
+                                                                for (int j = 0; j < Model.ItemList.Count(); j++)
+                                                                {
+                                                                    var item = Model.ItemList[j];
+                                                                    <tr id="item_id" data-id="@item.ID" class="item">
+                                                                        <td><input type="text" class="form-control item_title" value="@item.Title" disabled /></td>
+                                                                        <td>
+                                                                            @if (item.IsOnline)
+                                                                            {
+                                                                                <label class="label label-success">啟用</label>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <label class="label label-danger">停用</label>
+                                                                            }
+                                                                        </td>
+                                                                        <td>
+                                                                            <button class="btn btn-primary edit_item" type="button" data-toggle="modal" data-target="#ItemModal" data-id="@item.ID">編輯</button>
+                                                                        </td>
+                                                                    </tr>
+                                                                }
+                                                            }
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <th width="9%">項目</th>
+                                                                <th width="9%">啟用狀態</th>
+                                                                <th width="4%"></th>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+
+                                    @if (Model.ID == 0)
+                                    {
+                                        @Html.HiddenFor(model => model.CreateDate)
+                                    }
+                                    else
+                                    {
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.CreateDate)
+                                            <input type="text" class="form-control" value="@Model.CreateDate.ToString("yyyy/MM/dd HH:mm")" disabled />
+                                        </div>
+                                    }
+                                </div>
+                                <!-- /.tab-pane -->
+                            </div>
+                            <!-- /.tab-content -->
+                        </div>
+                        <!-- nav-tabs-custom -->
+                    </div>
+
+                    <div class="box-footer">
+                        @if (adminInfo.ID == Model.Creater || Model.ID == 0)
+                        {
+                            <button id="SaveBtn" type="submit" class="btn btn-primary">儲存</button>
+                        }
+                        @Html.ActionLink("取消/回列表", "Index", "CheckingPointAdmin", new { PathID = Model.PathID }, new { @class = "btn btn-default" })
+                    </div>
+                }
+            </div>
+
+            <!-- Popup Modal -->
+            <div class="modal fade" id="ItemModal" tabindex="-1" aria-labelledby="ItemModal" aria-hidden="true">
+                <div class="modal-dialog" style="max-width: 60%;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            <h3 class="modal-title">檢查細項</h3>
+                        </div>
+
+                        <div class="modal-body">
+                            <div class="box-head" id="item_body">
+
+                            </div>
+                            <div class="box-body">
+                                <input type="hidden" id="item_id" />
+                                <input type="hidden" id="item_pointid" />
+                                <input type="hidden" id="item_pathid" />
+                                <input type="hidden" id="item_createdate" />
+                                <input type="hidden" id="item_creater" />
+                                <div class="form-group d-none" style="margin-left:5px;">
+                                    <label>項目名稱</label>
+                                    <input id="item_title" class="form-control" />
+                                </div>
+                                <div class="form-group d-none" style="margin-left:5px;">
+                                    <label>檢查內容/說明</label>
+                                    <textarea id="item_description" class="form-control"></textarea>
+                                </div>
+                                <div class="form-group" style="margin-left:5px;">
+                                    <div class="form-check pretty p-switch p-fill" style="margin-bottom:10px; margin-top: 10px;">
+                                        <input class="form-check-input" type="checkbox" id="item_isonline" />
+                                        <div class="state p-success">
+                                            <label class="form-check-label" style="font-weight:bold;">啟用</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="save_item">儲存</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+@section scripts{
+    <script>
+        $(function () {
+            $('#add_item').on('click', function () {
+                AddItem();
+            });
+            $('#edit_item').on('click', function () {
+                EditItem($(this));
+            });
+
+            function AddItem() {
+                $('#item_id').val(0);
+                $('#item_pointid').val(parseInt($('#ID').val()));
+                $('#item_pathid').val(parseInt($('#PathID').val()));
+                $('#item_title').val('');
+                $('#item_description').val('');
+                $('#item_isonline').prop("checked", false);
+            }
+
+            function EditItem() {
+                $.ajax({
+                    url: "/Admin/CheckingItemAdmin/GetItem",
+                    type: 'POST',
+                    dataType: "json",
+                    async: false,
+                    data: {
+                        itemId: element.data('id')
+                    },
+                    success: function (response) {
+                        $('#item_id').val(response.ID);
+                        $('#item_pointid').val(response.PointID);
+                        $('#item_title').val(response.Title);
+                        $('#item_description').val(response.Description);
+                        if (response.IsOnline == true) {
+                            $('#item_isonline').prop("checked", true);
+                        }
+                        else {
+                            $('#item_isonline').prop("checked", false);
+                        }
+                    }
+                });
+            }
+
+            $('#save_item').on('click', function () {
+                objData = {
+                    ID: parseInt($('#item_id').val()),
+                    PointID: $('#ID').val(),
+                    PathID: $('#PathID').val(),
+                    Title: $('#item_title').val(),
+                    Description: $('#item_description').val(),
+                    IsOnline: $('#item_isonline').is(':checked'),
+                };
+
+                $.ajax({
+                    url: "/CheckingItemAdmin/SaveItem",
+                    type: 'POST',
+                    anysc: false,
+                    dataType: "text",
+                    data: objData,
+                    success: function (response) {
+                        toastr.success('資料已更新');
+                        $('#close_popup').click();
+                        location.reload();
+                    },
+                    error: function () {
+                        toastr.error('更新失敗');
+                    }
+                });
+            })
+        })
+    </script>
+}
